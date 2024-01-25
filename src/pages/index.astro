@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/default.astro';
-import Logo from '../components/logo/logo.astro';
+import Logo from '../components/logo.astro';
 import Section from '../components/section.astro';
+import Stat from '../components/stat.astro';
 
-const sections = await Astro.glob('../sections/home/*.mdx');
+const sections = await Astro.glob('../admin/pages/home/sections/*.mdx');
+const stats = await Astro.glob('../admin/pages/home/stats/*.mdx');
 ---
 <Layout>
 	<header>
@@ -24,6 +26,16 @@ const sections = await Astro.glob('../sections/home/*.mdx');
 		</nav>
 	</header>
 	<main>
+		<section class="statistics" id="our-story">
+			<div class="statistics__text">
+				We create unforgettable bike experiences and empower young Moroccans to create a better tomorrow.
+			</div>
+			<div class="statistics__stats">
+				{
+					stats.map(({ frontmatter: { value, label }}) => <Stat value={value} label={label} />)
+				}
+			</div>
+		</section>
 		{
 			sections.map(({ frontmatter: { id, title }, Content }) => (
 				<Section id={id} title={title}>
