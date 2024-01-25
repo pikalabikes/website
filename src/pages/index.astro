@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/default.astro';
-import Section from '../components/section.jsx';
+import Logo from '../components/logo/logo.astro';
+import Section from '../components/section.astro';
 
 const sections = await Astro.glob('../sections/home/*.mdx');
 ---
 <Layout>
 	<header>
+		<Logo />
 		<h1>Pikala</h1>
 		<nav>
 			<ul>

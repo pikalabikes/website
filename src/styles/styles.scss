@@ -1,0 +1,23 @@
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  color: var(--color-henna);
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Quicksand', sans-serif;
+}
+
+a {
+  color: var(--color-indigo);
+}
+
+::selection {
+  background-color: var(--color-clementine);
+  color: var(--color-white);
+}
