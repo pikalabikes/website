@@ -7,7 +7,7 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 ---
 <section class={`dynamic-section color--${color} side--${side}`} id={id}>
   <div class="image-wrapper">
-    <Image class="image" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
+    <Image class="image" loading="lazy" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
   </div>
   <div class="content">
     <h3>{title}</h3>
@@ -35,19 +35,83 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
   color: var(--color-white);
 }
 
+.color--white {
+  background-color: var(--color-white);
+  color: var(--color-henna);
+}
+
 .content {
-  padding: 2rem 1rem 1rem;
+  background-color: inherit;
+  padding: 1rem 1rem 0.5rem;
   order: 1;
+  position: relative;
+  z-index: 1;
 
   @include b-desktop {
     padding: 6rem 3rem;
     font-size: 24px;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -8rem;
+    background: inherit;
+    clip-path: url(#wave1);
+    height: 2rem;
+    top: calc(-2rem + 1px);
+
+    .side--right & {
+      clip-path: url(#wave2);
+    }
+  }
+
+  @include b-desktop {
+    &::before {
+      top: 0;
+      bottom: -1rem;
+      clip-path: url(#wave6);
+      width: 3rem;
+      height: 100%;
+      left: auto;
+      right: calc(-3rem + 1px);
+
+      .side--right & {
+        left: calc(-3rem + 1px);
+        right: auto;
+        clip-path: url(#wave7);
+      }
+  }
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -8rem;
+    background: inherit;
+    clip-path: url(#wave5);
+    height: 2rem;
+    bottom: calc(-2rem + 1px);
+  }
+
+  @include b-desktop {
+    &::after {
+      content: none;
+    }
   }
 }
 
 .image-wrapper {
   max-height: 50vh;
   overflow: hidden;
+
+  @include b-desktop {
+    max-height: 100%;
+  }
 }
 
 .image {
