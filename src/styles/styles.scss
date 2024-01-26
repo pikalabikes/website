@@ -11,6 +11,14 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+main {
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
 }
 
 h1, h2, h3 {
@@ -24,6 +32,10 @@ h2 {
   @include b-desktop {
     font-size: 48px;
   }
+}
+
+p {
+  margin-top: 0;
 }
 
 a {

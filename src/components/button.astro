@@ -1,14 +1,14 @@
 ---
 const { variant, size, ...props } = Astro.props;
 ---
-<a class={`button button--variant-${variant} button--size-${size}`} {...props}>
+<a class={`button button--variant-${variant} button--size-${size} ${props.class || ''}`} {...props}>
   <slot />
 </a>
 
 <style lang="scss">
 .button {
   border: solid 2px;
-  border-color: var(--button-background);
+  border-color: var(--button-border);
   border-radius: 1em;
   background-color: var(--button-background);
   color: var(--button-foreground);
@@ -29,7 +29,15 @@ const { variant, size, ...props } = Astro.props;
 
 .button--variant-clementine {
   --button-background: var(--color-clementine);
+  --button-border: var(--color-clementine);
   --button-foreground: var(--color-white);
   --button-hover-color: var(--color-henna);
+}
+
+.button--variant-outline {
+  --button-background: transparent;
+  --button-border: var(--color-henna);
+  --button-foreground: var(--color-henna);
+  --button-hover-color: var(--color-indigo);
 }
 </style>

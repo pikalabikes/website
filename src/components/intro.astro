@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Logo from '../components/logo.astro';
 import Button from '../components/button.astro';
 
-import { frontmatter as config } from '../admin/pages/home/intro.mdx';
+import { frontmatter as config } from '../admin/pages/home/home.mdx';
 
 const { default: heroImage } = await import(`../admin/images/${config['hero_image']}.jpg`);
 ---
@@ -139,7 +139,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 
 .content {
   background: var(--color-marble);
-  padding: 1rem;
+  padding: 1.5rem;
   position: relative;
 
   &::before {
@@ -179,7 +179,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 .nav-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   justify-content: center;
   list-style-type: none;
   margin: 0;

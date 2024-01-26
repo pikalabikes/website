@@ -1,25 +1,17 @@
 ---
 import Layout from '../layouts/default.astro';
 import Section from '../components/section.astro';
-import Stat from '../components/stat.astro';
 import Intro from '../components/intro.astro';
+import StatsSection from '../components/stats-section.astro';
+import VideoSection from '../components/video-section.astro';
 
 const sections = await Astro.glob('../admin/pages/home/sections/*.mdx');
-const stats = await Astro.glob('../admin/pages/home/stats/*.mdx');
 ---
 <Layout>
 	<Intro />
 	<main>
-		<section class="statistics" id="our-story">
-			<div class="statistics__text">
-				We create unforgettable bike experiences and empower young Moroccans to create a better tomorrow.
-			</div>
-			<div class="statistics__stats">
-				{
-					stats.map(({ frontmatter: { value, label }}) => <Stat value={value} label={label} />)
-				}
-			</div>
-		</section>
+		<StatsSection />
+		<VideoSection />
 		{
 			sections.map(({ frontmatter: { id, title }, Content }) => (
 				<Section id={id} title={title}>
