@@ -3,10 +3,64 @@ import { Image } from 'astro:assets';
 const partners = await Astro.glob('../admin/partners/*.mdx');
 ---
 <footer class="footer">
-  <h2>Our partners</h2>
-  <div class="partners">
+  <h3>Our partners</h3>
+  <ul class="partners">
     {
-      partners.map(({ frontmatter: { image, name } }) => <Image src={image} alt={name} />)
+      partners.map(async ({ frontmatter: { image, name } }) => {
+        const { default: src } = await import(`../admin/images/${image}`);
+        return (
+          <li class="partner">
+            <Image class="partner-image" src={src} alt={name} title={name} />
+          </li>
+        );
+      })
     }
-  </div>
+  </ul>
+  <p class="copyright">Copyright 2024 PIKALA BIKES | All Rights Reserved</p>
 </footer>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.footer {
+  color: var(--color-mortar);
+  padding: 1rem;
+
+  @include b-desktop {
+    padding: 3rem 3rem 1rem;
+  }
+}
+
+.partners {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  max-width: 1200px;
+
+  @include b-desktop {
+    margin-top: 3rem;
+  }
+}
+
+.partner-image {
+  height: 3rem;
+  width: auto;
+
+  @include b-desktop {
+    height: 5rem;
+  }
+}
+
+.copyright {
+  margin: 3rem 0 0;
+  text-align: center;
+
+  @include b-desktop {
+    margin-top: 4rem;
+    text-align: left;
+  }
+}
+</style>
