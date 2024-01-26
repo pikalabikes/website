@@ -1,10 +1,50 @@
 ---
 ---
-<iframe class="video" src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<section class="video-section" id="our-story">
+  <iframe class="video" src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div class="panel">
+    <h1>Our story</h1>
+  </div>
+</section>
 
 <style lang="scss">
+.video-section {
+  scroll-snap-align: start;
+}
+
 .video {
   min-height: 50vh;
   width: 100vw;
+}
+
+.panel {
+  background: var(--color-clementine);
+  color: var(--color-white);
+  text-align: center;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -2rem;
+    background: inherit;
+    clip-path: url(#wave1);
+    height: 3rem;
+    top: calc(-3rem + 1px);
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -2rem;
+    background: inherit;
+    clip-path: url(#wave5);
+    height: 3rem;
+    bottom: calc(-3rem + 1px);
+  }
 }
 </style>

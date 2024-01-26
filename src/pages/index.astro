@@ -22,3 +22,9 @@ const sections = await Astro.glob('../admin/pages/home/sections/*.mdx');
 	</main>
 	<footer></footer>
 </Layout>
+
+<style lang="scss">
+main {
+	scroll-snap-type: y mandatory;
+}
+</style>
