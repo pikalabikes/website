@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 
 import Logo from '../components/logo.astro';
+import Button from '../components/button.astro';
+
 import { frontmatter as config } from '../admin/pages/home/intro.mdx';
 
 const { default: heroImage } = await import(`../admin/images/${config['hero_image']}.jpg`);
@@ -17,14 +19,32 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
       <h2>Bikes power the next generation.</h2>
       <nav class="nav">
         <ul class="nav-list">
-          <li>
-            <a href={`${import.meta.env.BASE_URL}/booking`}>Book now</a>
+          <li class="nav-item">
+            <Button
+              variant="clementine"
+              size="m"
+              href={`${import.meta.env.BASE_URL}/booking`}
+            >
+              Book now
+            </Button>
           </li>
-          <li>
-            <a href='#our-story'>Our story</a>
+          <li class="nav-item">
+            <Button
+              variant="clementine"
+              size="m"
+              href='#our-story'
+            >
+              Our story
+            </Button>
           </li>
-          <li>
-            <a href={`${import.meta.env.BASE_URL}/cafe`}>Cafe</a>
+          <li class="nav-item">
+            <Button
+              variant="clementine"
+              size="m"
+              href={`${import.meta.env.BASE_URL}/cafe`}
+            >
+              Café
+            </Button>
           </li>
         </ul>
       </nav>
@@ -34,6 +54,14 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 
 <style lang="scss">
 @import '../styles/breakpoints';
+
+@mixin wave {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -1rem;
+  right: -1rem;
+}
 
 .intro {
   width: 100vw;
@@ -47,7 +75,6 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 }
 
 .panel {
-  background: var(--color-white);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -56,16 +83,82 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 
 .logo {
   display: flex;
-  padding: 1rem;
+  padding: 0 1rem 3rem;
+  position: relative;
+
+  @include b-desktop {
+    padding-bottom: 5rem;
+  }
+
+  :global(svg) {
+    width: 80px;
+    z-index: 1;
+  }
+
+  &::before {
+    @include wave;
+
+    animation: fade-in-slide 800ms ease-in-out forwards;
+    transform-origin: center left;
+    background: var(--color-white);
+    clip-path: url(#wave2);
+    height: 6rem;
+    top: calc(-2rem + 1px);
+
+    @include b-desktop {
+      clip-path: url(#wave3);
+      height: 15rem;
+      top: calc(-4rem + 1px);
+      transform-origin: center right;
+    }
+  }
+
+  &::after {
+    @include wave;
+
+    background: var(--color-white);
+    height: 4rem;
+    bottom: 0;
+
+    @include b-desktop {
+      height: 4rem;
+    }
+  }
 
   @include b-desktop {
     justify-content: center;
+
+    :global(svg) {
+      width: initial;
+    }
   }
 }
 
 .content {
   background: var(--color-marble);
   padding: 1rem;
+  position: relative;
+
+  &::before {
+    @include wave;
+
+    --wave-height: 2rem;
+
+    animation: fade-in-slide 1s ease-in-out forwards;
+    transform-origin: center right;
+    background: inherit;
+    clip-path: url(#wave1);
+
+    height: var(--wave-height);
+    top: calc(-1 * var(--wave-height) + 1px);
+
+    @include b-desktop {
+      --wave-height: 4rem;
+
+      clip-path: url(#wave4);
+      transform-origin: center left;
+    }
+  }
 
   @include b-desktop {
     text-align: center;
@@ -73,15 +166,24 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 }
 
 .nav {
-  margin-top: 2rem;
+  margin: 2rem 0 0;
+
+  @include b-desktop {
+    margin: 1rem 0 1rem;
+  }
 }
 
 .nav-list {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.nav-item {
+  display: flex;
 }
 </style>

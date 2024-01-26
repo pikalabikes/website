@@ -1,0 +1,9 @@
+@keyframes fade-in-slide {
+  from {
+    transform: scaleX(1.1);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}

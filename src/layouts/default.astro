@@ -1,6 +1,9 @@
 ---
 import '../styles/variables.scss';
+import '../styles/animations.scss';
 import '../styles/styles.scss';
+
+import Waves from '../components/waves.astro';
 ---
 
 <html lang="en">
@@ -16,5 +19,6 @@ import '../styles/styles.scss';
 	</head>
 	<body>
 		<slot/>
+		<Waves />
 	</body>
 </html>

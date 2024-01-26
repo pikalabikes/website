@@ -1,5 +1,8 @@
+@import './breakpoints';
+
 html {
   font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -7,6 +10,7 @@ body {
   font-size: 16px;
   margin: 0;
   padding: 0;
+  width: 100vw;
 }
 
 h1, h2, h3 {
@@ -16,6 +20,10 @@ h1, h2, h3 {
 
 h2 {
   font-size: 36px;
+
+  @include b-desktop {
+    font-size: 48px;
+  }
 }
 
 a {
