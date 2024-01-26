@@ -1,7 +1,68 @@
 ---
-const { id, title } = Astro.props;
+import { Image } from 'astro:assets';
+
+const { id, title, image, color, side } = Astro.props;
+
+const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 ---
-<section id={id}>
-  <h2>{title}</h2>
-  <slot />
+<section class={`dynamic-section color--${color} side--${side}`} id={id}>
+  <div class="image-wrapper">
+    <Image class="image" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
+  </div>
+  <div class="content">
+    <h3>{title}</h3>
+    <slot />
+  </div>
 </section>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.dynamic-section {
+  display: grid;
+
+  @include b-desktop {
+    grid: auto-flow / 2fr 3fr;
+
+    &.side--right {
+      grid: auto-flow / 3fr 2fr;
+    }
+  }
+}
+
+.color--azure {
+  background-color: var(--color-azure);
+  color: var(--color-white);
+}
+
+.content {
+  padding: 2rem 1rem 1rem;
+  order: 1;
+
+  @include b-desktop {
+    padding: 6rem 3rem;
+    font-size: 24px;
+  }
+}
+
+.image-wrapper {
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@include b-desktop {
+  .image-wrapper {
+    order: 2;
+
+    .side--right & {
+      order: 0;
+    }
+  }
+}
+</style>

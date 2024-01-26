@@ -13,8 +13,8 @@ const sections = await Astro.glob('../admin/pages/home/sections/*.mdx');
 		<StatsSection />
 		<VideoSection />
 		{
-			sections.map(({ frontmatter: { id, title }, Content }) => (
-				<Section id={id} title={title}>
+			sections.map(({ frontmatter: { id, title, image, color, side }, Content }) => (
+				<Section id={id} title={title} image={image} color={color} side={side}>
 					<Content />
 				</Section>
 			))
