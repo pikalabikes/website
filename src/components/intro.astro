@@ -71,6 +71,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 }
 
 .hero {
+  animation: fade-in-slide-in 800ms forwards;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -100,7 +101,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
   &::before {
     @include wave;
 
-    animation: fade-in-slide 800ms ease-in-out forwards;
+    animation: fade-in-scale-in 800ms ease-in-out forwards;
     transform-origin: center left;
     background: var(--color-white);
     clip-path: url(#wave2);
@@ -146,7 +147,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 
     --wave-height: 2rem;
 
-    animation: fade-in-slide 1s ease-in-out forwards;
+    animation: fade-in-scale-in 1s ease-in-out forwards;
     transform-origin: center right;
     background: inherit;
     clip-path: url(#wave1);
