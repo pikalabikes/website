@@ -21,7 +21,7 @@ main {
   position: relative;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: 'Quicksand', sans-serif;
   margin: initial;
 }
@@ -63,7 +63,22 @@ p {
 }
 
 a {
-  color: var(--color-indigo);
+  --link-color: var(--color-indigo);
+  --link-color-hover: var(--color-azure);
+
+  color: var(--link-color);
+
+  &:hover {
+    color: var(--link-color-hover);
+  }
+
+  &.social-icon {
+    text-decoration: none;
+
+    & + .social-icon {
+      margin-left: 0.5rem;
+    }
+  }
 }
 
 ::selection {

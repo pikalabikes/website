@@ -1,0 +1,12 @@
+---
+import { Image } from 'astro:assets';
+const partners = await Astro.glob('../admin/partners/*.mdx');
+---
+<footer class="footer">
+  <h2>Our partners</h2>
+  <div class="partners">
+    {
+      partners.map(({ frontmatter: { image, name } }) => <Image src={image} alt={name} />)
+    }
+  </div>
+</footer>

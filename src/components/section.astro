@@ -40,6 +40,19 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
   color: var(--color-henna);
 }
 
+.color--henna {
+  background-color: var(--color-henna);
+  color: var(--color-white);
+}
+
+.color--henna,
+.color--azure {
+  :global(a) {
+    --link-color: var(--color-marble);
+    --link-color-hover: var(--color-white);
+  }
+}
+
 .content {
   background-color: inherit;
   padding: 1rem 1rem 0.5rem;
@@ -102,6 +115,12 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
     &::after {
       content: none;
     }
+  }
+
+  :global(iframe) {
+    margin: 1rem 0 2rem;
+    width: 100%;
+    min-height: 20rem;
   }
 }
 
