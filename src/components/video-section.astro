@@ -1,16 +1,81 @@
 ---
+import { Image } from 'astro:assets';
+import Thumbnail from '../admin/images/video-thumbnail.jpg';
+import PlayButton from './play-button.astro';
 ---
 <section class="video-section" id="our-story">
-  <iframe class="video" src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div class="video-wrapper" id="video-wrapper">
+    <template id="video-template">
+      <iframe class="video" src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </template>
+    <Image class="thumbnail" src={Thumbnail} alt='Thumbnail of the Pikala promo video' />
+    <PlayButton id="video-play" class="play" />
+  </div>
   <div class="panel">
     <h1>Our story</h1>
   </div>
 </section>
 
+<script>
+const section = document.getElementById('our-story');
+const playButton = document.getElementById('video-play');
+const videoTemplate = document.getElementById('video-template') as HTMLTemplateElement;
+const videoWrapper = document.getElementById('video-wrapper');
+
+playButton.addEventListener('click', () => {
+  videoWrapper.insertBefore(
+    videoTemplate.content.cloneNode(true),
+    videoWrapper.firstElementChild,
+  );
+
+  section.classList.add('playing');
+  section.scrollIntoView({ block: 'start' })
+});
+</script>
+
 <style lang="scss">
-.video {
+.video-wrapper {
+  position: relative;
   min-height: 50vh;
   width: 100vw;
+  transition: min-height 300ms;
+
+  .playing & {
+    min-height: 80vh;
+  }
+
+  :global(#video-play) {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    transition: opacity 300ms;
+
+    .playing & {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+.video, .thumbnail {
+  min-height: inherit;
+  width: 100%;
+  display: block;
+}
+
+.thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  height: 100%;
+  transition: opacity 300ms;
+
+  .playing & {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .panel {
@@ -29,6 +94,13 @@
     clip-path: url(#wave1);
     height: 3rem;
     top: calc(-3rem + 1px);
+    transform: scaleY(1);
+    transform-origin: bottom center;
+    transition: transform 300ms;
+
+    .playing & {
+      transform: scaleY(0);
+    }
   }
 
   &::after {
