@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+
+import Logo from '../components/logo.astro';
+import { frontmatter as config } from '../admin/pages/home/intro.mdx';
+
+const { default: heroImage } = await import(`../admin/images/${config['hero_image']}.jpg`);
+---
+<header class="intro">
+  <Image class="hero" src={heroImage} alt={config['hero_image_alt_text']} />
+  <div class="panel">
+    <div class="logo">
+      <Logo />
+    </div>
+    <div class="content">
+      <h1 class="sr-only">Pikala</h1>
+      <h2>Bikes power the next generation.</h2>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li>
+            <a href={`${import.meta.env.BASE_URL}/booking`}>Book now</a>
+          </li>
+          <li>
+            <a href='#our-story'>Our story</a>
+          </li>
+          <li>
+            <a href={`${import.meta.env.BASE_URL}/cafe`}>Cafe</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.intro {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hero {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.panel {
+  background: var(--color-white);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-bottom: solid 1rem var(--color-clementine);
+}
+
+.logo {
+  display: flex;
+  padding: 1rem;
+
+  @include b-desktop {
+    justify-content: center;
+  }
+}
+
+.content {
+  background: var(--color-marble);
+  padding: 1rem;
+
+  @include b-desktop {
+    text-align: center;
+  }
+}
+
+.nav {
+  margin-top: 2rem;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+</style>

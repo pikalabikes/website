@@ -11,6 +11,11 @@ body {
 
 h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
+  margin: initial;
+}
+
+h2 {
+  font-size: 36px;
 }
 
 a {
@@ -20,4 +25,15 @@ a {
 ::selection {
   background-color: var(--color-clementine);
   color: var(--color-white);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }

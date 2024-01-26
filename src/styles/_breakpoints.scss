@@ -1,0 +1,7 @@
+$desktop-min-width: 1024px;
+
+@mixin b-desktop {
+  @media screen and (min-width: $desktop-min-width) {
+    @content;
+  }
+}
