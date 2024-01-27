@@ -111,7 +111,7 @@ for (const button of learnMoreButtons) {
 
 .content {
   background-color: inherit;
-  padding: 1rem 1rem 0.5rem;
+  padding: 1rem;
   order: 1;
   position: relative;
   z-index: 1;
@@ -240,12 +240,22 @@ for (const button of learnMoreButtons) {
 }
 
 .section-learn-more {
-  .side--right &::before {
-    content: '« ';
+  &::after {
+    content: ' »';
   }
 
-  .side--left &::after {
-    content: ' »';
+  @include b-desktop {
+    .side--right &::before {
+      content: '« ';
+    }
+
+    .side--right &::after {
+      content: none;
+    }
+
+    .side--left &::after {
+      content: ' »';
+    }
   }
 }
 </style>

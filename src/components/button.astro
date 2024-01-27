@@ -11,6 +11,8 @@ const attributes = {
 }
 
 <style lang="scss">
+@import '../styles/breakpoints';
+
 .button {
   border: solid 2px;
   border-color: var(--button-border);
@@ -30,8 +32,27 @@ const attributes = {
 }
 
 .button--size-m {
+  font-size: 20px;
+  padding: 0.325rem 0.75rem;
+}
+
+@include b-desktop {
+  .button--size-m {
+    font-size: 24px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.button--size-l {
   font-size: 24px;
   padding: 0.5rem 1rem;
+}
+
+@include b-desktop {
+  .button--size-l {
+    font-size: 32px;
+    padding: 0.5rem 1.5rem;
+  }
 }
 
 .button--variant-clementine {
