@@ -10,6 +10,7 @@ const stats = await Astro.glob('../admin/pages/home/stats/*.mdx');
     <div class="text">
       <p>{config['stats_text']}</p>
       <Button
+        as="a"
         class="book"
         variant="outline"
         size="m"

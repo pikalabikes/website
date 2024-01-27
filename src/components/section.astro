@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 
+import Button from './button.astro';
+
 const { id, title, image, color, side } = Astro.props;
 
 const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
@@ -14,21 +16,52 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
       title ? <h3>{title}</h3> : null
     }
     <slot />
+    <Button
+      variant={color === 'azure' ? 'outline-white' : 'outline'}
+      class="section-learn-more"
+      data-section={id}
+    >Learn more</Button>
   </div>
 </section>
+
+<script>
+const learnMoreButtons = document.getElementsByClassName('section-learn-more');
+
+for (const button of learnMoreButtons) {
+  const { section: sectionID } = (button as HTMLElement).dataset;
+  const section = document.getElementById(sectionID);
+
+  button.addEventListener('click', () => {
+    section.classList.add('expanded');
+    section.scrollIntoView({ block: 'nearest' });
+  });
+}
+</script>
 
 <style lang="scss">
 @import '../styles/breakpoints';
 
 .dynamic-section {
+  --expand-transition-time: 300ms;
+  --expand-size: 90vw;
+
   display: grid;
 
   @include b-desktop {
-    grid: auto-flow / 2fr 3fr;
+    transition: grid-template-columns var(--expand-transition-time);
+    grid-template-columns: 2fr 3fr;
     overflow: hidden;
 
     &.side--right {
-      grid: auto-flow / 3fr 2fr;
+      grid-template-columns: 3fr 2fr;
+    }
+
+    &.expanded {
+      grid-template-columns: var(--expand-size) 1fr;
+
+      &.side--right {
+        grid-template-columns: 1fr var(--expand-size);
+      }
     }
   }
 }
@@ -129,6 +162,38 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
     margin: 1rem 0 2rem;
     width: 100%;
     min-height: 20rem;
+  }
+
+  .section-learn-more {
+    display: none;
+  }
+
+  :global(hr), :global(hr) ~ :global(*) {
+    display: none;
+  }
+
+  :global(hr) ~ .section-learn-more {
+    display: inline-block;
+  }
+
+  .expanded & {
+    > :global(*) {
+      animation: fade-in var(--expand-transition-time) var(--expand-transition-time) both;
+    }
+
+    @include b-desktop {
+      columns: 2;
+      gap: 6rem;
+    }
+
+    :global(hr) ~ :global(*) {
+      display: block;
+      break-inside: avoid;
+    }
+
+    :global(hr) ~ .section-learn-more {
+      display: none;
+    }
   }
 }
 

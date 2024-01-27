@@ -1,9 +1,14 @@
 ---
-const { variant, size, ...props } = Astro.props;
+const { variant = 'outline', size = 'm', as, ...props } = Astro.props;
+
+const attributes = {
+  className: `button button--variant-${variant} button--size-${size} ${props.class || ''}`,
+  ...props,
+};
 ---
-<a class={`button button--variant-${variant} button--size-${size} ${props.class || ''}`} {...props}>
-  <slot />
-</a>
+{
+  as === 'a' ? <a {...attributes}><slot /></a> : <button {...attributes}><slot /></button>
+}
 
 <style lang="scss">
 .button {
@@ -12,7 +17,9 @@ const { variant, size, ...props } = Astro.props;
   border-radius: 1em;
   background-color: var(--button-background);
   color: var(--button-foreground);
+  display: inline-block;
   line-height: 1;
+  cursor: pointer;
   text-decoration: none;
   transition: border-color 50ms, color 50ms;
 
@@ -39,5 +46,12 @@ const { variant, size, ...props } = Astro.props;
   --button-border: var(--color-henna);
   --button-foreground: var(--color-henna);
   --button-hover-color: var(--color-indigo);
+}
+
+.button--variant-outline-white {
+  --button-background: transparent;
+  --button-border: var(--color-white);
+  --button-foreground: var(--color-white);
+  --button-hover-color: var(--color-marble);
 }
 </style>
