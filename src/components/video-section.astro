@@ -17,7 +17,7 @@ import PlayButton from './play-button.astro';
       <script type="text/javascript">
         let videoPlayer = null;
 
-        const onReady = () => videoPlayer?.playVideo();
+        const onReady = () => window.videoPlayer = videoPlayer;
 
         window.onYouTubeIframeAPIReady = () => videoPlayer = new YT.Player('video', { events: { onReady }});
       </script>
@@ -36,6 +36,14 @@ const playButton = document.getElementById('video-play');
 const videoTemplate = document.getElementById('video-template') as HTMLTemplateElement;
 const videoWrapper = document.getElementById('video-wrapper');
 
+const waitTillPlayerReady = (callback) => setTimeout(() => {
+  if ('videoPlayer' in window) {
+    callback(window.videoPlayer);
+  } else {
+    waitTillPlayerReady(callback);
+  }
+}, 100);
+
 playButton.addEventListener('click', () => {
   const iframeAPI = document.createElement('script');
   iframeAPI.src = 'https://www.youtube.com/iframe_api';
@@ -48,6 +56,8 @@ playButton.addEventListener('click', () => {
   );
 
   section.classList.add('playing');
+
+  waitTillPlayerReady((player) => player.playVideo());
 });
 </script>
 
