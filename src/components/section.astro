@@ -10,7 +10,9 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
     <Image class="image" loading="lazy" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
   </div>
   <div class="content">
-    <h3>{title}</h3>
+    {
+      title ? <h3>{title}</h3> : null
+    }
     <slot />
   </div>
 </section>
@@ -43,6 +45,11 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 .color--henna {
   background-color: var(--color-henna);
   color: var(--color-white);
+}
+
+.color--marble {
+  background-color: var(--color-marble);
+  color: var(--color-henna);
 }
 
 .color--henna,

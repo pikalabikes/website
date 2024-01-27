@@ -1,6 +1,17 @@
 ---
 import Layout from '../layouts/default.astro';
+import Section from '../components/section.astro';
+
+const sections = await Astro.glob('../admin/pages/cafe/sections/*.mdx');
 ---
 <Layout>
-	Cafe.
+	<main>
+		{
+			sections.map(({ frontmatter: { id, title, image, color, side }, Content }) => (
+				<Section id={id} title={title} image={image} color={color} side={side}>
+					<Content />
+				</Section>
+			))
+		}
+	</main>
 </Layout>
