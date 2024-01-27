@@ -6,7 +6,21 @@ import PlayButton from './play-button.astro';
 <section class="video-section" id="our-story">
   <div class="video-wrapper" id="video-wrapper">
     <template id="video-template">
-      <iframe class="video" src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe
+        id="video"
+        class="video"
+        loading="lazy"
+        src="https://www.youtube-nocookie.com/embed/D3ofT5b3Ifc?si=2bL9iXhJuFXfIoD5?rel=0&enablejsapi=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+      <script type="text/javascript">
+        let videoPlayer = null;
+
+        const onReady = () => videoPlayer?.playVideo();
+
+        window.onYouTubeIframeAPIReady = () => videoPlayer = new YT.Player('video', { events: { onReady }});
+      </script>
     </template>
     <Image class="thumbnail" src={Thumbnail} alt='Thumbnail of the Pikala promo video' />
     <PlayButton id="video-play" class="play" />
@@ -23,17 +37,23 @@ const videoTemplate = document.getElementById('video-template') as HTMLTemplateE
 const videoWrapper = document.getElementById('video-wrapper');
 
 playButton.addEventListener('click', () => {
+  const iframeAPI = document.createElement('script');
+  iframeAPI.src = 'https://www.youtube.com/iframe_api';
+
+  document.head.appendChild(iframeAPI);
+
   videoWrapper.insertBefore(
     videoTemplate.content.cloneNode(true),
     videoWrapper.firstElementChild,
   );
 
   section.classList.add('playing');
-  section.scrollIntoView({ block: 'start' })
 });
 </script>
 
 <style lang="scss">
+@import '../styles/breakpoints';
+
 .video-wrapper {
   position: relative;
   min-height: 50vh;
@@ -41,7 +61,12 @@ playButton.addEventListener('click', () => {
   transition: min-height 300ms;
 
   .playing & {
-    min-height: 80vh;
+    min-height: 50vh;
+    z-index: 2;
+
+    @include b-desktop {
+      min-height: 80vh;
+    }
   }
 
   :global(#video-play) {
@@ -94,13 +119,6 @@ playButton.addEventListener('click', () => {
     clip-path: url(#wave1);
     height: 3rem;
     top: calc(-3rem + 1px);
-    transform: scaleY(1);
-    transform-origin: bottom center;
-    transition: transform 300ms;
-
-    .playing & {
-      transform: scaleY(0);
-    }
   }
 
   &::after {
