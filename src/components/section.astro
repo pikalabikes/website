@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 
 import Button from './button.astro';
 
-const { id, title, image, color, side } = Astro.props;
+const { id, title, image, color, side, book_button } = Astro.props;
 
 const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 ---
@@ -13,7 +13,7 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
   </div>
   <div class="content">
     {
-      title ? <h3>{title}</h3> : null
+      title && <h3>{title}</h3>
     }
     <slot />
     <Button
@@ -21,6 +21,19 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
       class="section-learn-more"
       data-section={id}
     >Learn more</Button>
+    {
+      book_button && (
+      <Button
+        as="a"
+        class="section-book-button"
+        variant={color === 'azure' ? 'white' : 'henna'}
+        size="m"
+        href={`${import.meta.env.BASE_URL}/booking`}
+      >
+        Book now
+      </Button>
+      )
+    }
   </div>
 </section>
 
@@ -172,7 +185,8 @@ for (const button of learnMoreButtons) {
     display: none;
   }
 
-  :global(hr) ~ .section-learn-more {
+  :global(hr) ~ .section-learn-more,
+  :global(hr) ~ .section-book-button {
     display: inline-block;
   }
 
@@ -187,11 +201,12 @@ for (const button of learnMoreButtons) {
     }
 
     :global(hr) ~ :global(*) {
-      display: block;
+      display: revert;
       break-inside: avoid;
     }
 
-    :global(hr) ~ .section-learn-more {
+    :global(hr) ~ .section-learn-more,
+    :global(hr) ~ .section-book-button {
       display: none;
     }
   }
