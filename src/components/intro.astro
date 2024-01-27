@@ -102,7 +102,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
   &::before {
     @include wave;
 
-    animation: scale-in 800ms ease-in-out forwards;
+    animation: scale-in-120 800ms ease-in-out forwards;
     transform-origin: center left;
     background: var(--color-white);
     clip-path: url(#wave2);
@@ -110,6 +110,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
     top: calc(-2rem + 1px);
 
     @include b-desktop {
+      animation-name: scale-in-110;
       clip-path: url(#wave3);
       height: 15rem;
       top: calc(-4rem + 1px);
@@ -148,7 +149,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 
     --wave-height: 2rem;
 
-    animation: scale-in 1s ease-in-out forwards;
+    animation: scale-in-120 1s ease-in-out forwards;
     transform-origin: center right;
     background: inherit;
     clip-path: url(#wave1);
@@ -159,6 +160,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
     @include b-desktop {
       --wave-height: 4rem;
 
+      animation-name: scale-in-110;
       clip-path: url(#wave4);
       transform-origin: center left;
     }
