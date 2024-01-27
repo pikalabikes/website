@@ -20,7 +20,9 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
       variant={color === 'azure' ? 'outline-white' : 'outline'}
       class="section-learn-more"
       data-section={id}
-    >Learn more</Button>
+    >
+    Learn more
+    </Button>
     {
       book_button && (
       <Button
@@ -234,6 +236,16 @@ for (const button of learnMoreButtons) {
     .side--right & {
       order: 0;
     }
+  }
+}
+
+.section-learn-more {
+  .side--right &::before {
+    content: '« ';
+  }
+
+  .side--left &::after {
+    content: ' »';
   }
 }
 </style>
