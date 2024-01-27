@@ -19,7 +19,7 @@ import PlayButton from './play-button.astro';
 
         const onReady = () => window.videoPlayer = videoPlayer;
 
-        window.onYouTubeIframeAPIReady = () => videoPlayer = new YT.Player('video', { events: { onReady }});
+        window.onYouTubeIframeAPIReady = () => videoPlayer = new YT.Player('video', { events: { onReady, onAutoplayBlocked: () => document.body.style.filter = 'blur(10px)' }});
       </script>
     </template>
     <Image class="thumbnail" src={Thumbnail} alt='Thumbnail of the Pikala promo video' />
