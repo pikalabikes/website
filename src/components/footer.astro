@@ -3,6 +3,11 @@ import { Image } from 'astro:assets';
 const partners = await Astro.glob('../admin/partners/*.mdx');
 ---
 <footer class="footer">
+  <a class="back-to-top" href="#page" aria-label="Back to top">
+    <svg aria-hidden="true" width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 15L15 3L27 15" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
   <h3>Our partners</h3>
   <ul class="partners">
     {
@@ -25,6 +30,7 @@ const partners = await Astro.glob('../admin/partners/*.mdx');
 .footer {
   color: var(--color-mortar);
   padding: 1rem;
+  position: relative;
 
   @include b-desktop {
     padding: 3rem 3rem 1rem;
@@ -61,6 +67,29 @@ const partners = await Astro.glob('../admin/partners/*.mdx');
   @include b-desktop {
     margin-top: 4rem;
     text-align: left;
+  }
+}
+
+.back-to-top {
+  align-items: center;
+  background: var(--color-clementine);
+  border-radius: 64px;
+  color: var(--color-white);
+  display: flex;
+  font-family: Quicksand;
+  font-size: 64px;
+  height: 64px;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: 2rem;
+  text-decoration: none;
+  top: -24px;
+  width: 64px;
+  z-index: 3;
+
+  @include b-desktop {
+    display: none;
   }
 }
 </style>

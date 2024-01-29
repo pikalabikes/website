@@ -1,9 +1,9 @@
 ---
 import Stat from './stat.astro';
-import Button from './button.astro';
-import { frontmatter as config } from '../admin/pages/home/home.mdx';
+import Button from '../button.astro';
+import { frontmatter as config } from '../../admin/pages/home/home.mdx';
 
-const stats = await Astro.glob('../admin/pages/home/stats/*.mdx');
+const stats = await Astro.glob('../../admin/pages/home/stats/*.mdx');
 ---
 <section class="stats-section" id="statistics">
   <div class="content">
@@ -28,7 +28,7 @@ const stats = await Astro.glob('../admin/pages/home/stats/*.mdx');
 </section>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+@import '../../styles/breakpoints';
 
 .stats-section {
   background: var(--color-white);

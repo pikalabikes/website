@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 
-import Logo from '../components/logo.astro';
-import Button from '../components/button.astro';
+import Logo from '../logo.astro';
+import Button from '../button.astro';
 
-import { frontmatter as config } from '../admin/pages/home/home.mdx';
+import { frontmatter as config } from '../../admin/pages/home/home.mdx';
 
-const { default: heroImage } = await import(`../admin/images/${config['hero_image']}.jpg`);
+const { default: heroImage } = await import(`../../admin/images/${config['hero_image']}.jpg`);
 ---
 <header class="intro">
   <Image class="hero" src={heroImage} alt={config['hero_image_alt_text']} />
@@ -56,7 +56,7 @@ const { default: heroImage } = await import(`../admin/images/${config['hero_imag
 </header>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+@import '../../styles/breakpoints';
 
 @mixin wave {
   content: '';
