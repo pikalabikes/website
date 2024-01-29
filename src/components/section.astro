@@ -5,7 +5,7 @@ import Button from './button.astro';
 
 const { id, title, image, color, side, book_button } = Astro.props;
 
-const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
+const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
 ---
 <section class={`dynamic-section color--${color} side--${side}`} id={id}>
   <div class="image-wrapper">

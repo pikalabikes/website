@@ -6,7 +6,7 @@ import '../styles/styles.scss';
 import Footer from '../components/footer.astro';
 import Waves from '../components/waves.astro';
 
-import { frontmatter as config } from '../admin/site.mdx';
+import { frontmatter as config } from '../../admin/site.mdx';
 
 const titleParts = [config.title];
 
@@ -17,7 +17,7 @@ if (pageTitle) {
 
 const fullTitle = titleParts.join(' - ');
 
-const { default: { src: socialMediaImage } } = await import(`../admin/images/${config['social_media_image']}.jpg`);
+const { default: { src: socialMediaImage } } = await import(`../../admin/images/${config['social_media_image']}.jpg`);
 ---
 
 <html lang="en">

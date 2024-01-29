@@ -4,10 +4,10 @@ import Header from '../components/header.astro';
 import Button from '../components/button.astro';
 import BookingOption from '../components/booking-option.astro';
 
-import { frontmatter as config } from '../admin/pages/booking/booking.mdx';
+import { frontmatter as config } from '../../admin/pages/booking/booking.mdx';
 
-const tours = await Astro.glob('../admin/pages/booking/tours/*.mdx');
-const rental = await Astro.glob('../admin/pages/booking/rental/*.mdx');
+const tours = await Astro.glob('../../admin/pages/booking/tours/*.mdx');
+const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
 ---
 <Layout pageTitle="Bookings">
 	<Header cafe />

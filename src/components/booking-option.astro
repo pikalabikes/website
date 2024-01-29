@@ -5,7 +5,7 @@ import Button from '../components/button.astro';
 
 const { title, image, price } = Astro.props;
 
-const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
+const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
 ---
 <article class="booking-option">
   <Image

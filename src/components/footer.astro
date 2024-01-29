@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-const partners = await Astro.glob('../admin/partners/*.mdx');
+const partners = await Astro.glob('../../admin/partners/*.mdx');
 ---
 <footer class="footer">
   <a class="back-to-top" href="#page" aria-label="Back to top">
@@ -12,7 +12,7 @@ const partners = await Astro.glob('../admin/partners/*.mdx');
   <ul class="partners">
     {
       partners.map(async ({ frontmatter: { image, name } }) => {
-        const { default: src } = await import(`../admin/images/${image}.png`);
+        const { default: src } = await import(`../../admin/images/${image}.png`);
         return (
           <li class="partner">
             <Image class="partner-image" src={src} alt={name} title={name} />

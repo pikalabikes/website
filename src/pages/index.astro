@@ -5,7 +5,7 @@ import Intro from '../components/home/intro.astro';
 import StatsSection from '../components/home/stats-section.astro';
 import VideoSection from '../components/home/video-section.astro';
 
-const sections = await Astro.glob('../admin/pages/home/sections/*.mdx');
+const sections = await Astro.glob('../../admin/pages/home/sections/*.mdx');
 ---
 <Layout>
 	<Intro />

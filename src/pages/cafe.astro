@@ -4,7 +4,7 @@ import Header from '../components/header.astro';
 import Section from '../components/section.astro';
 import Intro from '../components/cafe/intro.astro';
 
-const sections = await Astro.glob('../admin/pages/cafe/sections/*.mdx');
+const sections = await Astro.glob('../../admin/pages/cafe/sections/*.mdx');
 ---
 <Layout pageTitle="Café">
 	<Header booking />
