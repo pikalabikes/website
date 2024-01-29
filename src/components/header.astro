@@ -4,9 +4,9 @@ import Logo from '../components/logo.astro';
 const { home = true, cafe, booking } = Astro.props;
 ---
 <header class="header">
-  <div class="logo">
+  <a href={import.meta.env.BASE_URL} class="logo" aria-hidden="true">
     <Logo />
-  </div>
+  </a>
   <nav class="nav">
     <ul class="nav-list">
       {
@@ -70,6 +70,7 @@ const { home = true, cafe, booking } = Astro.props;
 }
 
 .logo {
+  display: block;
   position: relative;
   z-index: 2;
 
