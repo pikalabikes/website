@@ -38,6 +38,7 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 
 .booking-option {
   background: var(--color-white);
+  border: solid 2px var(--color-henna);
   border-radius: 2rem;
   overflow: hidden;
   max-width: calc(100vw - 2rem);
@@ -55,12 +56,27 @@ const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
 }
 
 .content {
+  background-color: inherit;
   padding: 1rem;
   flex-grow: 1;
+  position: relative;
+  z-index: 1;
 
   @include b-desktop {
     font-size: 1.25rem;
     padding: 1.5rem 1.5rem 1rem;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -8rem;
+    background: inherit;
+    clip-path: url(#wave1);
+    height: 1rem;
+    top: calc(-1rem + 1px);
   }
 }
 
