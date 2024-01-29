@@ -1,7 +1,21 @@
+$tablet-min-width: 768px;
 $desktop-min-width: 1024px;
+$large-desktop-min-width: 1200px;
+
+@mixin b-tablet {
+  @media screen and (min-width: $tablet-min-width) {
+    @content;
+  }
+}
 
 @mixin b-desktop {
   @media screen and (min-width: $desktop-min-width) {
+    @content;
+  }
+}
+
+@mixin b-large-desktop {
+  @media screen and (min-width: $large-desktop-min-width) {
     @content;
   }
 }

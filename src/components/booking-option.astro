@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+
+import Button from '../components/button.astro';
+
+const { title, image, price } = Astro.props;
+
+const { default: imageSrc } = await import(`../admin/images/${image}.jpg`);
+---
+<article class="booking-option">
+  <Image
+    class="image"
+    src={imageSrc}
+    alt={title}
+    aria-hidden="true"
+    width="800"
+  />
+  <div class="content">
+    <h3 class="title">{title}</h3>
+    <slot />
+  </div>
+  <div class="action">
+    <p class="price">
+      <span class="price-value">{price}</span>
+    </p>
+    <Button
+      as="a"
+      class="book"
+      variant="clementine"
+    >
+      Book
+    </Button>
+  </div>
+</article>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.booking-option {
+  background: var(--color-white);
+  border-radius: 2rem;
+  overflow: hidden;
+  max-width: calc(100vw - 2rem);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.content {
+  padding: 1rem;
+  flex-grow: 1;
+
+  @include b-desktop {
+    font-size: 1.25rem;
+    padding: 1.5rem 1.5rem 1rem;
+  }
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
+  background: var(--color-henna);
+  color: var(--color-white);
+
+  @include b-desktop {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+  }
+}
+
+.price {
+  margin: 0;
+
+  @include b-desktop {
+    font-size: 1.25rem;
+  }
+}
+
+.price-value {
+  font-weight: bold;
+}
+</style>

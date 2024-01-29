@@ -19,6 +19,7 @@ main {
   width: 100vw;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 h1, h2, h3, h4 {
@@ -44,6 +45,7 @@ h2 {
 
 h3 {
   font-size: 24px;
+  line-height: 1.05;
 
   + p {
     margin-top: 0.75rem;

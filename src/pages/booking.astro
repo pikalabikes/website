@@ -2,14 +2,179 @@
 import Layout from '../layouts/default.astro';
 import Header from '../components/header.astro';
 import Button from '../components/button.astro';
+import BookingOption from '../components/booking-option.astro';
+
+import { frontmatter as config } from '../admin/pages/booking/booking.mdx';
+
+const tours = await Astro.glob('../admin/pages/booking/tours/*.mdx');
+const rental = await Astro.glob('../admin/pages/booking/rental/*.mdx');
 ---
 <Layout pageTitle="Bookings">
 	<Header cafe />
-	<main>
+	<main class="booking">
 		<h2>I'd like to</h2>
-    <div>
-      <Button size="l" variant="outline">Book a tour</Button>
-      <Button size="l" variant="outline">Rent a bike</Button>
+    <nav class="booking-types">
+      <Button
+        class="booking-options-toggle"
+        as="a"
+        size="l"
+        variant="outline"
+        href="#tours"
+        aria-controls="tours"
+      >
+        Book a tour
+      </Button>
+      <Button
+        class="booking-options-toggle"
+        as="a"
+        size="l"
+        variant="outline"
+        href="#bike-rental"
+        aria-controls="bike-rental"
+      >
+        Rent a bike
+      </Button>
+    </nav>
+    <div id="tours" class="booking-options">
+      <p class="booking-type-description">
+        {config['tours_description']}
+      </p>
+      <ul class="booking-options-list">
+      {
+        tours.map(({ frontmatter: { title, image, price }, Content }, index) => (
+          <li class="booking-option" style={`--list-item-index: ${index};`}>
+            <BookingOption title={title} image={image} price={price}>
+              <Content />
+            </BookingOption>
+          </li>
+        ))
+      }
+      </ul>
+    </div>
+    <div id="bike-rental" class="booking-options">
+      <p class="booking-type-description">
+        {config['rental_description']}
+      </p>
+      <ul class="booking-options-list">
+      {
+        rental.map(({ frontmatter: { title, image, price }, Content }, index) => (
+          <li class="booking-option" style={`--list-item-index: ${index};`}>
+            <BookingOption title={title} image={image} price={price}>
+              <Content />
+            </BookingOption>
+          </li>
+        ))
+      }
+      </ul>
     </div>
 	</main>
 </Layout>
+
+<script>
+const SELECTED_CLASS = 'booking-options-selected';
+
+const buttons = Array.from(document.getElementsByClassName('booking-options-toggle'));
+const selectedOptions = document.getElementsByClassName(SELECTED_CLASS);
+
+if (location.hash) {
+  const id = location.hash.slice(1);
+  const button = buttons.find((button) => button.getAttribute('aria-controls') === id) as HTMLElement;
+
+  setTimeout(() => button?.click(), 500);
+}
+
+for (const button of buttons) {
+  const options = document.getElementById(button.getAttribute('aria-controls'));
+
+  button.addEventListener('click', () => {
+    Array.from(selectedOptions).forEach((opt) => opt.classList.remove(SELECTED_CLASS));
+    buttons.forEach((btn) => btn.setAttribute('aria-expanded', 'false'));
+
+    options.classList.add(SELECTED_CLASS);
+    button.setAttribute('aria-expanded', 'true');
+  });
+}
+</script>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.booking {
+  background: var(--color-marble);
+  padding: 4rem 1rem 2rem;
+  min-height: 100vh;
+
+  @include b-desktop {
+    padding: 4rem 3rem 2rem;
+  }
+}
+
+.booking-types {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+
+  @include b-desktop {
+    gap: 1rem;
+  }
+}
+
+.booking-options-toggle {
+  &[aria-expanded="true"] {
+    background-color: var(--color-henna);
+    color: var(--color-white);
+  }
+}
+
+.booking-options {
+  display: none;
+  width: 100%;
+  scroll-margin-top: 1rem;
+
+  @include b-desktop {
+    scroll-margin-top: 2rem;
+  }
+}
+
+.booking-options-selected {
+  animation: fade-in 300ms forwards;
+  display: block;
+}
+
+.booking-type-description {
+  font-size: 1.25rem;
+  margin: 1.5rem 0;
+  max-width: 1000px;
+  width: 100%;
+
+  @include b-desktop {
+    font-size: 1.5rem;
+    margin: 2rem 0 2rem;
+  }
+}
+
+.booking-options-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  padding: 0;
+  gap: 1rem;
+
+  @include b-tablet {
+    align-items: stretch;
+    display: grid;
+    grid: auto-flow / repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @include b-large-desktop {
+    grid: auto-flow / repeat(3, 1fr);
+  }
+}
+
+.booking-option {
+  animation: fade-in 300ms both;
+  animation-delay: calc(100ms * var(--list-item-index));
+}
+</style>
