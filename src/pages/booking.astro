@@ -12,31 +12,33 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
 <Layout pageTitle="Bookings">
 	<Header cafe />
 	<main class="booking">
-		<h2>I'd like to</h2>
-    <nav class="booking-types">
-      <Button
-        class="booking-options-toggle"
-        as="a"
-        size="l"
-        variant="outline"
-        href="#tours"
-        aria-controls="tours"
-        aria-haspopup="true"
-      >
-        Book a tour
-      </Button>
-      <Button
-        class="booking-options-toggle"
-        as="a"
-        size="l"
-        variant="outline"
-        href="#bike-rental"
-        aria-controls="bike-rental"
-        aria-haspopup="true"
-      >
-        Rent a bike
-      </Button>
-    </nav>
+    <div class="booking-intro">
+      <h2>I'd like to</h2>
+      <nav class="booking-types">
+        <Button
+          class="booking-options-toggle"
+          as="a"
+          size="l"
+          variant="outline"
+          href="#tours"
+          aria-controls="tours"
+          aria-haspopup="true"
+        >
+          Book a tour
+        </Button>
+        <Button
+          class="booking-options-toggle"
+          as="a"
+          size="l"
+          variant="outline"
+          href="#bike-rental"
+          aria-controls="bike-rental"
+          aria-haspopup="true"
+        >
+          Rent a bike
+        </Button>
+      </nav>
+    </div>
     <div id="tours" class="booking-options">
       <p class="booking-type-description">
         {config['tours_description']}
@@ -109,6 +111,10 @@ for (const button of buttons) {
   @include b-desktop {
     padding: 4rem 3rem 6rem;
   }
+}
+
+.booking-intro {
+  animation: fade-in 500ms 300ms both, slide-in 500ms 300ms both;
 }
 
 .booking-types {
