@@ -64,11 +64,11 @@ for (const button of learnMoreButtons) {
 
   @include b-desktop {
     transition: grid-template-columns var(--expand-transition-time);
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: minmax(600px, auto) 60%;
     overflow: hidden;
 
     &.side--right {
-      grid-template-columns: 3fr 2fr;
+      grid-template-columns: auto minmax(600px, 50vw);
     }
 
     &.expanded {
