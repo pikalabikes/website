@@ -77,6 +77,10 @@ const stats = await Astro.glob('../../admin/pages/home/stats/*.mdx');
 
 .book {
   margin-top: 1rem;
+
+  @include b-desktop {
+    margin-top: 0;
+  }
 }
 
 .stats {
