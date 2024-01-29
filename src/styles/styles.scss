@@ -109,3 +109,11 @@ a {
 .tiny {
   font-size: 14px;
 }
+
+.desktop-only {
+  display: none;
+
+  @include b-desktop {
+    display: revert;
+  }
+}

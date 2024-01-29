@@ -1,0 +1,116 @@
+---
+import Logo from '../components/logo.astro';
+
+const { home = true, cafe, booking } = Astro.props;
+---
+<header class="header">
+  <div class="logo">
+    <Logo />
+  </div>
+  <nav class="nav">
+    <ul class="nav-list">
+      {
+        home && (
+        <li class="nav-item">
+          <a class="nav-link" href={import.meta.env.BASE_URL}>Home</a>
+        </li>
+        )
+      }
+      {
+        booking && (
+        <li class="nav-item desktop-only">
+          <a class="nav-link" href={`${import.meta.env.BASE_URL}/booking`}>Book bikes & tours</a>
+        </li>
+        )
+      }
+      {
+        cafe && (
+        <li class="nav-item desktop-only">
+          <a class="nav-link" href={`${import.meta.env.BASE_URL}/cafe`}>Café</a>
+        </li>
+        )
+      }
+    </ul>
+  </nav>
+</header>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.header {
+  align-items: center;
+  background: var(--color-white);
+  display: flex;
+  position: relative;
+  z-index: 2;
+  justify-content: space-between;
+  padding: 1rem 2rem 0 1rem;
+
+  @include b-desktop {
+    justify-content: start;
+  }
+
+  &::after {
+    animation: scale-in-120 800ms ease-in-out forwards;
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1rem;
+    right: -8rem;
+    background: inherit;
+    clip-path: url(#wave5);
+    height: 2rem;
+    bottom: calc(-1.5rem + 1px);
+    z-index: 1;
+
+    @include b-desktop {
+      animation-name: scale-in-110;
+    }
+  }
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+
+  :global(svg) {
+    width: 80px;
+  }
+}
+
+.nav {
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+
+  @include b-desktop {
+    margin-left: 6rem;
+  }
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+
+  @include b-desktop {
+    gap: 4rem;
+  }
+}
+
+.nav-link {
+  font-family: Quicksand;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--color-clementine);
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color 100ms;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+</style>

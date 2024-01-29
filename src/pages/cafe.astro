@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/default.astro';
+import Header from '../components/header.astro';
 import Section from '../components/section.astro';
 
 const sections = await Astro.glob('../admin/pages/cafe/sections/*.mdx');
 ---
 <Layout>
+	<Header booking />
 	<main>
 		{
 			sections.map(({ frontmatter: { id, title, image, color, side }, Content }) => (

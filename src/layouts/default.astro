@@ -19,8 +19,17 @@ import Waves from '../components/waves.astro';
 		<link href="https://fonts.googleapis.com/css2?family=Inter&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<slot/>
-		<Footer />
+		<div class="page">
+			<slot/>
+			<Footer />
+		</div>
 		<Waves />
 	</body>
 </html>
+
+<style lang="scss">
+.page {
+	width: 100vw;
+	overflow: hidden;
+}
+</style>
