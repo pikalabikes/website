@@ -1,13 +1,24 @@
 ---
-const { value, label } = Astro.props;
+const { value, label, section } = Astro.props;
 ---
-<div class="stat">
+<a href={`#${section}`} class="stat">
   <div class="value">{value}</div>
   <div class="label">{label}</div>
-</div>
+</a>
 
 <style lang="scss">
 @import '../../styles/breakpoints';
+
+.stat {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: color 100ms;
+
+  &:hover {
+    color: var(--color-indigo);
+  }
+}
 
 .value {
   font-family: Quicksand;

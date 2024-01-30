@@ -21,7 +21,8 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
     </div>
     <div class="stats">
       {
-        stats.map(({ frontmatter: { value, label }}) => <Stat value={value} label={label} />)
+        stats.map(({ frontmatter: { value, label, section }}) =>
+          <Stat value={value} label={label} section={section} />)
       }
     </div>
   </div>
@@ -38,6 +39,10 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
   justify-content: center;
 
   @include b-desktop {
+    padding: 3rem 3rem 6rem;
+  }
+
+  @include b-large-desktop {
     padding: 3rem 6rem 6rem;
   }
 
@@ -86,6 +91,12 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
 .stats {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
+
+  @include b-tablet {
+    display: grid;
+    grid: auto-flow / 1fr 1fr;
+    gap: 2rem;
+  }
 }
 </style>
