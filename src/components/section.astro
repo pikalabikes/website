@@ -67,14 +67,14 @@ for (const button of learnMoreButtons) {
     grid-template-columns: minmax(600px, auto) 60%;
     overflow: hidden;
 
-    &.side--right {
+    &:nth-child(2n) {
       grid-template-columns: auto minmax(600px, 50vw);
     }
 
     &.expanded {
       grid-template-columns: var(--expand-size) 1fr;
 
-      &.side--right {
+      &:nth-child(2n) {
         grid-template-columns: 1fr var(--expand-size);
       }
     }
@@ -133,7 +133,7 @@ for (const button of learnMoreButtons) {
     height: 2rem;
     top: calc(-2rem + 1px);
 
-    .side--right & {
+    .dynamic-section:nth-child(2n) & {
       clip-path: url(#wave2);
     }
   }
@@ -148,7 +148,7 @@ for (const button of learnMoreButtons) {
       left: auto;
       right: calc(-3rem + 1px);
 
-      .side--right & {
+      .dynamic-section:nth-child(2n) & {
         left: calc(-3rem + 1px);
         right: auto;
         clip-path: url(#wave7);
@@ -234,7 +234,7 @@ for (const button of learnMoreButtons) {
   .image-wrapper {
     order: 2;
 
-    .side--right & {
+    .dynamic-section:nth-child(2n) & {
       order: 0;
     }
   }
@@ -246,11 +246,11 @@ for (const button of learnMoreButtons) {
   }
 
   @include b-desktop {
-    .side--right &::before {
+    .dynamic-section:nth-child(2n) &::before {
       content: '« ';
     }
 
-    .side--right &::after {
+    .dynamic-section:nth-child(2n) &::after {
       content: none;
     }
 
