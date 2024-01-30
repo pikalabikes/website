@@ -6,6 +6,8 @@ import Button from './button.astro';
 const { id, title, image, color, side, book_button } = Astro.props;
 
 const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
+
+const darkBackground = color === 'azure' || color === 'indigo';
 ---
 <section class={`dynamic-section color--${color} side--${side}`} id={id}>
   <div class="image-wrapper">
@@ -17,7 +19,7 @@ const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
     }
     <slot />
     <Button
-      variant={color === 'azure' ? 'outline-white' : 'outline'}
+      variant={darkBackground ? 'outline-white' : 'outline'}
       class="section-learn-more"
       data-section={id}
     >
@@ -28,7 +30,7 @@ const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
       <Button
         as="a"
         class="section-book-button"
-        variant={color === 'azure' ? 'white' : 'henna'}
+        variant={darkBackground ? 'white' : 'henna'}
         size="m"
         href={`${import.meta.env.BASE_URL}/booking`}
       >
@@ -101,8 +103,14 @@ for (const button of learnMoreButtons) {
   color: var(--color-henna);
 }
 
+.color--indigo {
+  background-color: var(--color-indigo);
+  color: var(--color-white);
+}
+
 .color--henna,
-.color--azure {
+.color--azure,
+.color--indigo {
   :global(a) {
     --link-color: var(--color-marble);
     --link-color-hover: var(--color-white);
@@ -254,7 +262,7 @@ for (const button of learnMoreButtons) {
       content: none;
     }
 
-    .side--left &::after {
+    .dynamic-section:nth-child(2n+1) &::after {
       content: ' »';
     }
   }
