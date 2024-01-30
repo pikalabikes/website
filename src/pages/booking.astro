@@ -43,9 +43,15 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
         </p>
         <ul class="booking-options-list">
         {
-          tours.map(({ frontmatter: { title, image, price }, Content }, index) => (
+          tours.map(({ frontmatter: { title, image, images, price }, Content }, index, array) => (
             <li class="booking-option" style={`--list-item-index: ${index};`}>
-              <BookingOption title={title} image={image} price={price}>
+              <BookingOption
+                open={index === array.length - 1}
+                title={title}
+                image={image}
+                price={price}
+                images={images}
+              >
                 <Content />
               </BookingOption>
             </li>
@@ -59,9 +65,15 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
         </p>
         <ul class="booking-options-list">
         {
-          rental.map(({ frontmatter: { title, image, price }, Content }, index) => (
+          rental.map(({ frontmatter: { title, image, images, price }, Content }, index, array) => (
             <li class="booking-option" style={`--list-item-index: ${index};`}>
-              <BookingOption title={title} image={image} price={price}>
+              <BookingOption
+                open={index === array.length - 1}
+                title={title}
+                image={image}
+                price={price}
+                images={images}
+              >
                 <Content />
               </BookingOption>
             </li>
@@ -102,12 +114,12 @@ for (const button of buttons) {
 
   @include b-tablet {
     display: grid;
-    grid: 1fr / 224px minmax(300px, 900px);
+    grid: 1fr / 224px 1fr;
     gap: 2rem;
   }
 
   @include b-desktop {
-    grid: 1fr / 300px minmax(300px, 900px);
+    grid: 1fr / 300px 1fr;
     gap: 6rem;
   }
 }
@@ -182,7 +194,7 @@ for (const button of buttons) {
 .booking-type-description {
   font-size: 1.25rem;
   margin: 1.5rem 0 0;
-  max-width: 1000px;
+  max-width: 900px;
   width: 100%;
   padding: 0 1rem 1rem;
 

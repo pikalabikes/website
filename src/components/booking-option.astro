@@ -4,24 +4,35 @@ import { Image } from 'astro:assets';
 import Button from '../components/button.astro';
 import Chevron from './chevron.astro';
 
-const { title, image, price } = Astro.props;
+const { title, image, price, images, open = false } = Astro.props;
 
-const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
+const importImage = async (name) => (await import(`../../admin/images/${name}.jpg`)).default;
+
+const imageNames = images || [];
+const imageSrcs = await Promise.all(imageNames.map(importImage));
 ---
-<details class="booking-option">
+<details class="booking-option" open={open}>
   <summary class="summary">
     <h3 class="title">
       <Chevron />
       {title}
     </h3>
   </summary>
-  <Image
-    class="image"
-    src={imageSrc}
-    alt={title}
-    aria-hidden="true"
-    width="1980"
-  />
+  <div class="gallery">
+    <div class="gallery-images">
+    {
+      imageSrcs.map((src) => (
+        <Image
+          class="image"
+          src={src}
+          alt={title}
+          aria-hidden="true"
+          height="500"
+        />
+      ))
+    }
+    </div>
+  </div>
   <div class="content">
     <slot />
   </div>
@@ -57,6 +68,10 @@ const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
   content: '';
 }
 
+.title, .content {
+  max-width: 900px;
+}
+
 .title {
   padding: 1rem;
   border-top: solid 4px var(--color-azure-true);
@@ -83,18 +98,35 @@ const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
   }
 }
 
-.image {
-  animation: fade-in 300ms both;
-  display: block;
+.gallery {
+  overflow-x: scroll;
   width: 100%;
-  max-height: 50vh;
-  object-fit: cover;
   margin-top: 0.5rem;
 
   @include b-desktop {
     margin-left: 1rem;
     margin-top: 1rem;
   }
+}
+
+.gallery-images {
+  display: flex;
+  position: relative;
+  width: max-content;
+  gap: 1rem;
+  height: 30vh;
+
+  @include b-desktop {
+    height: 50vh;
+    padding-right: calc(100vw - 1200px);
+  }
+}
+
+.image {
+  animation: fade-in 300ms both;
+  display: block;
+  height: 100%;
+  width: auto;
 }
 
 .content {
