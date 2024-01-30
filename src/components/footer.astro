@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
+import Chevron from './chevron.astro';
+
 const partners = await Astro.glob('../../admin/partners/*.mdx');
 ---
 <footer class="footer">
   <a class="back-to-top" href="#page" aria-label="Back to top">
-    <svg aria-hidden="true" width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 15L15 3L27 15" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <Chevron />
   </a>
   <h3>Our partners</h3>
   <ul class="partners">

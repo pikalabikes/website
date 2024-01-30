@@ -1,9 +1,9 @@
 ---
 import Logo from '../components/logo.astro';
 
-const { home = true, cafe, booking } = Astro.props;
+const { home = true, cafe, booking, border = false } = Astro.props;
 ---
-<header class="header">
+<header class={`header ${border && 'header--border'}`}>
   <a href={import.meta.env.BASE_URL} class="logo" aria-hidden="true">
     <Logo />
   </a>
@@ -69,6 +69,15 @@ const { home = true, cafe, booking } = Astro.props;
   }
 }
 
+.header--border {
+  border-bottom: solid 0.5rem var(--color-clementine);
+  padding: 1rem 2rem 1rem 1rem;
+
+  &::after {
+    content: none;
+  }
+}
+
 .logo {
   display: block;
   position: relative;
@@ -82,6 +91,10 @@ const { home = true, cafe, booking } = Astro.props;
 .nav {
   margin-left: 2rem;
   padding-bottom: 1rem;
+
+  .header--border & {
+    padding-bottom: 0;
+  }
 
   @include b-desktop {
     margin-left: 6rem;
