@@ -64,7 +64,8 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   flex-direction: column;
 }
 
-.summary::marker {
+.summary::marker,
+.summary::-webkit-details-marker {
   display: none;
   content: '';
 }
