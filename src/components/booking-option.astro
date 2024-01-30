@@ -110,6 +110,7 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   overflow-x: scroll;
   width: 100%;
   margin-top: 0.5rem;
+  scroll-snap-type: x mandatory;
 
   @include b-desktop {
     margin-left: 1rem;
@@ -133,6 +134,7 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
 .image {
   animation: fade-in 300ms both;
   animation-delay: calc(var(--list-item-index) * 100ms);
+  scroll-snap-align: start;
   display: block;
   height: 100%;
   width: auto;
