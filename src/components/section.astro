@@ -15,7 +15,7 @@ const darkBackground = color === 'azure' || color === 'indigo';
   </div>
   <div class="content">
     {
-      title && <h3>{title}</h3>
+      title && <h3 class="title">{title}</h3>
     }
     <slot />
     <Button
@@ -130,6 +130,17 @@ for (const button of learnMoreButtons) {
     min-height: 50vh;
   }
 
+  @include b-large-desktop {
+    padding: 6rem 3rem;
+    font-size: 28px;
+    min-height: 50vh;
+
+    .title {
+      font-size: 48px;
+      margin-bottom: 2rem;
+    }
+  }
+
   &::before {
     content: '';
     display: block;
@@ -192,6 +203,14 @@ for (const button of learnMoreButtons) {
     display: none;
   }
 
+  :global(*) {
+    break-inside: avoid;
+  }
+
+  :global(h3), :global(h4), :global(h5), :global(h6) {
+    break-after: avoid;
+  }
+
   :global(hr), :global(hr) ~ :global(*) {
     display: none;
   }
@@ -213,7 +232,6 @@ for (const button of learnMoreButtons) {
 
     :global(hr) ~ :global(*) {
       display: revert;
-      break-inside: avoid;
     }
 
     :global(hr) ~ .section-learn-more,

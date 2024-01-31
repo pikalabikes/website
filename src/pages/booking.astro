@@ -115,10 +115,14 @@ for (const button of buttons) {
   @include b-tablet {
     display: grid;
     grid: 1fr / 224px 1fr;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   @include b-desktop {
+    grid: 1fr / 280px 1fr;
+  }
+
+  @include b-large-desktop {
     grid: 1fr / 300px 1fr;
     gap: 6rem;
   }
@@ -129,8 +133,8 @@ for (const button of buttons) {
   padding: 2rem 1rem 2rem;
   position: relative;
 
-  @include b-desktop {
-    padding: 3rem 1rem 2rem 3rem;
+  @include b-tablet {
+    padding: 3rem 1rem 2rem 2rem;
 
     &::before {
       content: '';
