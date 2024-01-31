@@ -46,17 +46,17 @@ const { id, description, items, preselected } = Astro.props;
 </div>
 
 <script>
-  import setupBookingSelectable from './booking-selectable';
+import setupBookingSelectable from './booking-selectable';
 
-  const containers = Array.from(document.getElementsByClassName('booking-options')) as Array<HTMLElement>;
+const containers = Array.from(document.getElementsByClassName('booking-options')) as Array<HTMLElement>;
 
-  containers.forEach((container) => setupBookingSelectable({
-    container,
-    selectedClass: 'booking-option-selected',
-    toggleClass: 'booking-option-toggle',
-    optionsClass: 'booking-options-list',
-  }));
-  </script>
+containers.forEach((container) => setupBookingSelectable({
+  container,
+  selectedClass: 'booking-option-selected',
+  toggleClass: 'booking-option-toggle',
+  optionsClass: 'booking-options-list',
+}));
+</script>
 
 <style lang="scss">
 @import '../../styles/breakpoints';
