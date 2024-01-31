@@ -1,12 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 
-import Button from '../components/button.astro';
-import Chevron from './chevron.astro';
+import Button from '../button.astro';
 
 const { title, price, images } = Astro.props;
 
-const importImage = async (name) => (await import(`../../admin/images/${name}.jpg`)).default;
+const importImage = async (name) => (await import(`../../../admin/images/${name}.jpg`)).default;
 
 const imageNames = images || [];
 const imageSrcs = await Promise.all(imageNames.map(importImage));
@@ -49,7 +48,7 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
 </div>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+@import '../../styles/breakpoints';
 
 .booking-option {
   background: var(--color-white);

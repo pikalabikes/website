@@ -1,6 +1,6 @@
 ---
-import BookingOption from '../components/booking-option.astro';
-import Button from '../components/button.astro';
+import BookingOption from './option.astro';
+import Button from '../button.astro';
 
 const { id, description, items, preselected } = Astro.props;
 ---
@@ -71,7 +71,7 @@ const { id, description, items, preselected } = Astro.props;
   </script>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+@import '../../styles/breakpoints';
 
 .booking-options {
   display: none;
