@@ -10,7 +10,7 @@ const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
 const darkBackground = color === 'azure' || color === 'indigo';
 ---
 <section class={`dynamic-section color--${color} side--${side}`} id={id}>
-  <div class="image-wrapper">
+  <div class="section-image-wrapper" data-section={id}>
     <Image class="image" loading="lazy" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
   </div>
   <div class="content">
@@ -51,6 +51,17 @@ for (const button of learnMoreButtons) {
   button.addEventListener('click', () => {
     section.classList.add('expanded');
     section.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+const imageWrappers = document.getElementsByClassName('section-image-wrapper');
+
+for (const wrapper of imageWrappers) {
+  const { section: sectionID } = (wrapper as HTMLElement).dataset;
+  const section = document.getElementById(sectionID);
+
+  wrapper.addEventListener('click', () => {
+    section.classList.remove('expanded');
   });
 }
 </script>
@@ -241,12 +252,22 @@ for (const button of learnMoreButtons) {
   }
 }
 
-.image-wrapper {
+.section-image-wrapper {
   max-height: 50vh;
   overflow: hidden;
+  transition: filter 300ms;
 
   @include b-desktop {
     max-height: 100%;
+  }
+
+  .dynamic-section.expanded & {
+    cursor: pointer;
+    filter: brightness(0.6);
+
+    &:hover {
+      filter: brightness(1);
+    }
   }
 }
 
@@ -257,31 +278,11 @@ for (const button of learnMoreButtons) {
 }
 
 @include b-desktop {
-  .image-wrapper {
+  .section-image-wrapper {
     order: 2;
 
     .dynamic-section:nth-child(2n) & {
       order: 0;
-    }
-  }
-}
-
-.section-learn-more {
-  &::after {
-    content: ' »';
-  }
-
-  @include b-desktop {
-    .dynamic-section:nth-child(2n) &::before {
-      content: '« ';
-    }
-
-    .dynamic-section:nth-child(2n) &::after {
-      content: none;
-    }
-
-    .dynamic-section:nth-child(2n+1) &::after {
-      content: ' »';
     }
   }
 }
