@@ -2,7 +2,7 @@
 import Layout from '../layouts/default.astro';
 import Header from '../components/header.astro';
 import Button from '../components/button.astro';
-import BookingOption from '../components/booking-option.astro';
+import BookingOptions from '../components/booking-options.astro';
 
 import { frontmatter as config } from '../../admin/pages/booking/booking.mdx';
 
@@ -37,50 +37,17 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
       </nav>
     </aside>
     <main class="booking-main">
-      <div id="tours" class="booking-options booking-options-selected">
-        <p class="booking-type-description">
-          {config['tours_description']}
-        </p>
-        <ul class="booking-options-list">
-        {
-          tours.map(({ frontmatter: { title, image, images, price }, Content }, index, array) => (
-            <li class="booking-option" style={`--list-item-index: ${index};`}>
-              <BookingOption
-                open={index === array.length - 1}
-                title={title}
-                image={image}
-                price={price}
-                images={images}
-              >
-                <Content />
-              </BookingOption>
-            </li>
-          ))
-        }
-        </ul>
-      </div>
-      <div id="bike-rental" class="booking-options">
-        <p class="booking-type-description">
-          {config['rental_description']}
-        </p>
-        <ul class="booking-options-list">
-        {
-          rental.map(({ frontmatter: { title, image, images, price }, Content }, index, array) => (
-            <li class="booking-option" style={`--list-item-index: ${index};`}>
-              <BookingOption
-                open={index === array.length - 1}
-                title={title}
-                image={image}
-                price={price}
-                images={images}
-              >
-                <Content />
-              </BookingOption>
-            </li>
-          ))
-        }
-        </ul>
-      </div>
+      <BookingOptions
+        id="tours"
+        description={config['tours_description']}
+        items={tours}
+        preselected
+      />
+      <BookingOptions
+        id="bike-rental"
+        description={config['rental_description']}
+        items={rental}
+      />
     </main>
 	</div>
 </Layout>
@@ -178,49 +145,5 @@ for (const button of buttons) {
   @include b-desktop {
     padding-top: 1.5rem;
   }
-}
-
-.booking-options {
-  display: none;
-  width: 100%;
-  scroll-margin-top: 1rem;
-
-  @include b-desktop {
-    scroll-margin-top: 2rem;
-  }
-}
-
-.booking-options-selected {
-  animation: fade-in 300ms forwards;
-  display: block;
-}
-
-.booking-type-description {
-  font-size: 1.25rem;
-  margin: 1.5rem 0 0;
-  max-width: 900px;
-  width: 100%;
-  padding: 0 1rem 1rem;
-
-  @include b-tablet {
-    padding: 2rem;
-  }
-
-  @include b-desktop {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-}
-
-.booking-options-list {
-  list-style-type: none;
-  display: block;
-  margin: 1rem 0;
-  padding: 0;
-}
-
-.booking-option {
-  animation: fade-in 300ms both;
-  animation-delay: calc(100ms * var(--list-item-index));
 }
 </style>

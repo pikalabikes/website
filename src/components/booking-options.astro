@@ -1,0 +1,144 @@
+---
+import BookingOption from '../components/booking-option.astro';
+import Button from '../components/button.astro';
+
+const { id, description, items, preselected } = Astro.props;
+---
+<div id={id} class={`booking-options ${ preselected && 'booking-options-selected' }`}>
+  <p class="booking-type-description">
+    {description}
+  </p>
+  <ul class="booking-options-list">
+  {
+    items.map(({ frontmatter: { title, id } }, index) => (
+      <li class="booking-options-list-item" style={`--list-item-index: ${index};`}>
+        <Button
+          class="booking-option-toggle"
+          variant="outline"
+          size="m"
+          aria-controls={id}
+          aria-haspopup="true"
+          aria-expanded={index === 0 ? 'true' : 'false'}
+        >
+          {title}
+        </Button>
+      </li>
+    ))
+  }
+  </ul>
+  {
+    items.map(({ frontmatter: { id, title, images, price }, Content }, index) => (
+      <article
+        id={id}
+        class={`booking-option ${index === 0 && 'booking-option-selected'}`}
+        style={`--list-item-index: ${index};`}
+      >
+        <BookingOption
+          title={title}
+          price={price}
+          images={images}
+        >
+          <Content />
+        </BookingOption>
+      </article>
+    ))
+  }
+</div>
+
+<script>
+  const containers = Array.from(document.getElementsByClassName('booking-options')) as Array<HTMLElement>;
+
+  containers.forEach((container) => {
+    const SELECTED_CLASS = 'booking-option-selected';
+
+    const optionsList = container.getElementsByClassName('options-list')[0];
+    const buttons = Array.from(container.getElementsByClassName('booking-option-toggle'));
+    const selectedOptions = container.getElementsByClassName(SELECTED_CLASS);
+
+    for (const button of buttons) {
+      const options = container.querySelector(`#${button.getAttribute('aria-controls')}`);
+
+      button.addEventListener('click', () => {
+        Array.from(selectedOptions).forEach((opt) => opt.classList.remove(SELECTED_CLASS));
+        buttons.forEach((btn) => btn.setAttribute('aria-expanded', 'false'));
+
+        options.classList.add(SELECTED_CLASS);
+        button.setAttribute('aria-expanded', 'true');
+        optionsList.scrollIntoView({ block: 'start' });
+      });
+    }
+  });
+  </script>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.booking-options {
+  display: none;
+  width: 100%;
+  padding: 0 1rem 1rem;
+
+  @include b-tablet {
+    padding: 2rem;
+  }
+}
+
+.booking-options-selected {
+  animation: fade-in 300ms forwards;
+  display: block;
+}
+
+.booking-type-description {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0;
+  max-width: 900px;
+  width: 100%;
+
+  @include b-desktop {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+}
+
+.booking-options-list {
+  scroll-margin-top: 1rem;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 0;
+
+  @include b-desktop {
+    margin: 2rem 0;
+    gap: 1rem;
+  }
+}
+
+.booking-option,
+.booking-options-list-item {
+  animation: fade-in 300ms both;
+  animation-delay: calc(100ms * var(--list-item-index));
+}
+
+.booking-option-toggle {
+  &[aria-expanded="true"] {
+    background-color: var(--color-henna);
+    border-color: var(--color-henna);
+    color: var(--color-white);
+  }
+}
+
+.booking-option {
+  --accent-color: var(--color-azure-true);
+  display: none;
+
+  &:nth-of-type(2n) {
+    --accent-color: var(--color-clementine);
+  }
+}
+
+.booking-option-selected {
+  display: block;
+}
+</style>
