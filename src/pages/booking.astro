@@ -11,7 +11,7 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
 ---
 <Layout pageTitle="Bookings">
 	<Header cafe border />
-	<div class="booking">
+	<div id="booking" class="booking">
     <aside class="booking-intro">
       <h2>I'd like to</h2>
       <nav class="booking-types">
@@ -53,22 +53,14 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
 </Layout>
 
 <script>
-const SELECTED_CLASS = 'booking-options-selected';
+import setupBookingSelectable from '../components/booking/booking-selectable';
 
-const buttons = Array.from(document.getElementsByClassName('booking-options-toggle'));
-const selectedOptions = document.getElementsByClassName(SELECTED_CLASS);
-
-for (const button of buttons) {
-  const options = document.getElementById(button.getAttribute('aria-controls'));
-
-  button.addEventListener('click', () => {
-    Array.from(selectedOptions).forEach((opt) => opt.classList.remove(SELECTED_CLASS));
-    buttons.forEach((btn) => btn.setAttribute('aria-expanded', 'false'));
-
-    options.classList.add(SELECTED_CLASS);
-    button.setAttribute('aria-expanded', 'true');
-  });
-}
+setupBookingSelectable({
+  container: document.getElementById('booking'),
+  optionsClass: 'booking-intro',
+  selectedClass: 'booking-options-selected',
+  toggleClass: 'booking-options-toggle',
+});
 </script>
 
 <style lang="scss">
@@ -120,6 +112,7 @@ for (const button of buttons) {
 }
 
 .booking-types {
+  scroll-margin-top: 1rem;
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
