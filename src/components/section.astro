@@ -81,20 +81,20 @@ for (const wrapper of imageWrappers) {
     overflow: hidden;
 
     &:nth-child(2n) {
-      grid-template-columns: auto minmax(600px, 50vw);
+      grid-template-columns: 60% minmax(600px, auto);
     }
 
     &.expanded {
-      grid-template-columns: var(--expand-size) 1fr;
+      grid-template-columns: var(--expand-size) calc(100vw - var(--expand-size));
 
       &:nth-child(2n) {
-        grid-template-columns: 1fr var(--expand-size);
+        grid-template-columns: calc(100vw - var(--expand-size)) var(--expand-size);
       }
     }
   }
 
   @include b-large-desktop {
-    --expand-size: 80vw;
+    --expand-size: 60vw;
   }
 }
 
