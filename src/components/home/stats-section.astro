@@ -1,6 +1,5 @@
 ---
 import Stat from './stat.astro';
-import Button from '../button.astro';
 import { frontmatter as config } from '../../../admin/pages/home/home.mdx';
 
 const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
@@ -9,15 +8,6 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
   <div class="content">
     <div class="text">
       <p>{config['stats_text']}</p>
-      <Button
-        as="a"
-        class="book"
-        variant="outline"
-        size="m"
-        href={`${import.meta.env.BASE_URL}/booking`}
-      >
-        Book now
-      </Button>
     </div>
     <div class="stats">
       {
@@ -77,14 +67,6 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
 
   @include b-desktop {
     font-size: 36px;
-  }
-}
-
-.book {
-  margin-top: 1rem;
-
-  @include b-desktop {
-    margin-top: 0;
   }
 }
 

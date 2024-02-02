@@ -3,13 +3,13 @@ import { Image } from 'astro:assets';
 
 import Button from './button.astro';
 
-const { id, title, image, color, side, book_button } = Astro.props;
+const { id, title, image, color, book_button } = Astro.props;
 
 const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
 
 const darkBackground = color === 'azure' || color === 'indigo';
 ---
-<section class={`dynamic-section color--${color} side--${side}`} id={id}>
+<section class={`dynamic-section color--${color}`} id={id}>
   <div class="section-image-wrapper" data-section={id}>
     <Image class="image" loading="lazy" src={imageSrc} alt={`Illustration for ${title}`} width="1000" />
   </div>
