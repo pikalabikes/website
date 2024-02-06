@@ -9,7 +9,7 @@ import { frontmatter as config } from '../../../admin/pages/home/home.mdx';
 const { default: heroImage } = await import(`../../../admin/images/${config['hero_image']}.jpg`);
 ---
 <header class="intro">
-  <Image class="hero" src={heroImage} alt={config['hero_image_alt_text']} />
+  <Image class="hero" src={heroImage} alt={config['hero_image_alt_text']} width="1920"/>
   <div class="panel">
     <div class="logo">
       <Logo />
@@ -78,6 +78,7 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 75% 25%;
 }
 
 .panel {
@@ -115,8 +116,8 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
     @include b-desktop {
       animation-name: scale-in-110;
       clip-path: url(#wave3);
-      height: 15rem;
-      top: calc(-4rem + 1px);
+      height: 13rem;
+      top: calc(-3rem + 1px);
       transform-origin: center right;
     }
   }
@@ -171,6 +172,7 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
 
   @include b-desktop {
     text-align: center;
+    padding: 0 1.5rem 1.5rem;
   }
 }
 
@@ -183,7 +185,7 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
   animation: fade-in 1s 300ms both;
 
   @include b-desktop {
-    margin: 3rem 0 1rem;
+    margin: 2rem 0 1rem;
   }
 }
 
