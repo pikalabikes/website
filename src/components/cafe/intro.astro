@@ -16,7 +16,9 @@ import { frontmatter as config } from '../../../admin/pages/cafe/cafe.mdx';
           as="a"
           variant="outline"
           size="l"
-          href={config['menu_link']}
+          href={`${import.meta.env.BASE_URL}/${config['menu_link']}`}
+          target="_blank"
+          rel="noopener"
         >
           Our menu
         </Button>
