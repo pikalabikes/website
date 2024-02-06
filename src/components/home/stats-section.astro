@@ -52,11 +52,12 @@ const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
 
 .content {
   display: grid;
-  gap: 4rem;
+  gap: 1rem;
   max-width: 1400px;
 
   @include b-desktop {
     grid: auto-flow / 1fr 1fr;
+    gap: 4rem;
   }
 }
 

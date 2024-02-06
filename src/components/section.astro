@@ -202,6 +202,10 @@ for (const wrapper of imageWrappers) {
     bottom: calc(-2rem + 1px);
   }
 
+  .dynamic-section:last-of-type &::after {
+    content: none;
+  }
+
   @include b-desktop {
     &::after {
       content: none;
@@ -263,14 +267,14 @@ for (const wrapper of imageWrappers) {
 
   @include b-desktop {
     max-height: 100%;
-  }
 
-  .dynamic-section.expanded & {
-    cursor: pointer;
-    filter: brightness(0.6);
+    .dynamic-section.expanded & {
+      cursor: pointer;
+      filter: brightness(0.6);
 
-    &:hover {
-      filter: brightness(1);
+      &:hover {
+        filter: brightness(1);
+      }
     }
   }
 }
