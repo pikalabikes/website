@@ -2,8 +2,9 @@
 import { Image } from 'astro:assets';
 
 import Button from './button.astro';
+import Stat from './home/stat.astro';
 
-const { id, title, image, color, book_button } = Astro.props;
+const { id, title, image, color, stat } = Astro.props;
 
 const { default: imageSrc } = await import(`../../admin/images/${image}.jpg`);
 
@@ -17,6 +18,13 @@ const darkBackground = color === 'azure' || color === 'indigo';
     {
       title && <h3 class="title">{title}</h3>
     }
+    {
+      stat && (
+        <div class="section-stat">
+          <Stat value={stat.value} label={stat.label} section={id} />
+        </div>
+      )
+    }
     <slot />
     <Button
       variant={darkBackground ? 'outline-white' : 'outline'}
@@ -25,19 +33,6 @@ const darkBackground = color === 'azure' || color === 'indigo';
     >
     Read more
     </Button>
-    {
-      book_button && (
-      <Button
-        as="a"
-        class="section-book-button"
-        variant={darkBackground ? 'white' : 'henna'}
-        size="m"
-        href={`${import.meta.env.BASE_URL}/booking`}
-      >
-        Book now
-      </Button>
-      )
-    }
   </div>
 </section>
 
@@ -234,8 +229,7 @@ for (const wrapper of imageWrappers) {
     display: none;
   }
 
-  :global(hr) ~ .section-learn-more,
-  :global(hr) ~ .section-book-button {
+  :global(hr) ~ .section-learn-more {
     display: inline-block;
   }
 
@@ -253,8 +247,7 @@ for (const wrapper of imageWrappers) {
       display: revert;
     }
 
-    :global(hr) ~ .section-learn-more,
-    :global(hr) ~ .section-book-button {
+    :global(hr) ~ .section-learn-more {
       display: none;
     }
   }
@@ -291,6 +284,62 @@ for (const wrapper of imageWrappers) {
 
     .dynamic-section:nth-child(2n) & {
       order: 0;
+    }
+  }
+}
+
+.section-stat {
+  margin: 1rem 0;
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  height: 3rem;
+  min-height: fit-content;
+
+  &::before {
+    display: block;
+    content: '';
+    width: 4px;
+    background: var(--color-clementine);
+    height: 100%;
+    border-radius: 2px;
+
+    .color--white & {
+      background: var(--color-azure-true);
+    }
+  }
+
+  :global(.value) {
+    font-size: 2rem;
+  }
+
+  :global(.label) {
+    font-size: 1rem;
+  }
+
+  @include b-desktop {
+    margin: 1rem 0 2rem;
+    height: 5rem;
+
+    :global(.value) {
+      font-size: 3rem;
+    }
+
+    :global(.label) {
+      font-size: 1.5rem;
+    }
+  }
+
+  @include b-large-desktop {
+    margin: 1rem 0 2rem;
+    height: 5rem;
+
+    :global(.value) {
+      font-size: 3rem;
+    }
+
+    :global(.label) {
+      font-size: 1.5rem;
     }
   }
 }

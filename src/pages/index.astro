@@ -6,6 +6,9 @@ import StatsSection from '../components/home/stats-section.astro';
 import VideoSection from '../components/home/video-section.astro';
 
 const sections = await Astro.glob('../../admin/pages/home/sections/*.mdx');
+const stats = await Astro.glob('../../admin/pages/home/stats/*.mdx');
+
+const getStat = (section) => stats.find(({ frontmatter }) => frontmatter['section'] === section)?.frontmatter;
 ---
 <Layout>
 	<Intro />
@@ -13,8 +16,8 @@ const sections = await Astro.glob('../../admin/pages/home/sections/*.mdx');
 		<StatsSection />
 		<VideoSection />
 		{
-			sections.map(({ frontmatter: { id, title, image, color, side, book_button }, Content }) => (
-				<Section id={id} title={title} image={image} color={color} side={side} book_button={book_button}>
+			sections.map(({ frontmatter: { id, title, image, color, side }, Content }) => (
+				<Section id={id} title={title} image={image} color={color} side={side} stat={getStat(id)}>
 					<Content />
 				</Section>
 			))
