@@ -60,24 +60,42 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
           </tr>
         )
       }
-      <tr>
-        <th scope="row">Times</th>
-        <td>{times}</td>
-      </tr>
-      <tr>
-        <th scope="row">Duration</th>
-        <td>{duration}</td>
-      </tr>
-      <tr>
-        <th scope="row">Languages</th>
-        <td>{languages}</td>
-      </tr>
-      <tr>
-        <th scope="row">Address</th>
-        <td>{start_address}
-          (<a href={start_maps_link} rel="noopener" target="_blank">see map</a>)
-        </td>
-      </tr>
+      {
+        times && (
+          <tr>
+            <th scope="row">Times</th>
+            <td>{times}</td>
+          </tr>
+        )
+      }
+      {
+        duration && (
+          <tr>
+            <th scope="row">Duration</th>
+            <td>{duration}</td>
+          </tr>
+        )
+      }
+      {
+        languages && (
+          <tr>
+            <th scope="row">Languages</th>
+            <td>{languages}</td>
+          </tr>
+        )
+      }
+      {
+        start_address && (
+        <tr>
+          <th scope="row">Address</th>
+          <td>{start_address}
+            ({
+              start_maps_link && <a href={start_maps_link} rel="noopener" target="_blank">see map</a>
+            })
+          </td>
+        </tr>
+        )
+      }
     </table>
     <p class="faq-link">
       Got further questions? Check our <a href={`${import.meta.env.BASE_URL}/booking/faq`}>booking FAQ page</a>.
