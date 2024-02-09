@@ -19,7 +19,8 @@ import { Content } from '../../../admin/pages/booking/faq.mdx'
 .booking-main {
   padding: 1rem;
   margin-bottom: 2rem;
-  min-height: 100vh;
+  min-height: 60vh;
+  max-width: 900px;
 
   @include b-desktop {
     padding: 2rem 4rem;
@@ -27,8 +28,48 @@ import { Content } from '../../../admin/pages/booking/faq.mdx'
 }
 </style>
 
-<style is:global>
+<style is:global lang="scss">
+@import '../../styles/breakpoints';
+
+h1 {
+  font-size: 32px;
+  margin: 0.5rem 0 0;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @include b-desktop {
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    background: var(--color-azure);
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  &::before {
+    width: 2rem;
+
+    @include b-desktop {
+      width: 4rem;
+    }
+  }
+
+  &::after {
+    flex-grow: 1;
+  }
+}
+
 h2 {
+  font-size: 28px;
   margin-top: 2rem;
 }
 
