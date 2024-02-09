@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/default.astro';
+import Header from '../../components/header.astro';
+
+import { Content } from '../../../admin/pages/booking/faq.mdx'
+---
+<Layout pageTitle="Bookings">
+	<Header cafe booking border />
+	<div id="booking" class="booking">
+    <main class="booking-main">
+      <Content />
+    </main>
+	</div>
+</Layout>
+
+<style lang="scss">
+@import "../../styles/_breakpoints";
+
+.booking-main {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  min-height: 100vh;
+
+  @include b-desktop {
+    padding: 2rem 4rem;
+  }
+}
+</style>
+
+<style is:global>
+h2 {
+  margin-top: 2rem;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+}
+</style>

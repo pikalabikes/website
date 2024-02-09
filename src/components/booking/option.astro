@@ -3,7 +3,18 @@ import { Image } from 'astro:assets';
 
 import Button from '../button.astro';
 
-const { title, price, images } = Astro.props;
+const {
+  title,
+  images,
+  price,
+  duration,
+  languages,
+  times,
+  private_tour,
+  price_children,
+  start_address,
+  start_maps_link,
+} = Astro.props;
 
 const importImage = async (name) => (await import(`../../../admin/images/${name}.jpg`)).default;
 
@@ -32,16 +43,53 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   </div>
   <div class="content">
     <slot />
+    <table class="info">
+      <tr>
+        <th scope="row">Price</th>
+        <td>
+        {price
+        }{price_children && `, children: ${price_children}`
+        }
+        </td>
+      </tr>
+      {
+        private_tour && (
+          <tr>
+            <th scope="row">Private tour</th>
+            <td>{private_tour}</td>
+          </tr>
+        )
+      }
+      <tr>
+        <th scope="row">Times</th>
+        <td>{times}</td>
+      </tr>
+      <tr>
+        <th scope="row">Duration</th>
+        <td>{duration}</td>
+      </tr>
+      <tr>
+        <th scope="row">Languages</th>
+        <td>{languages}</td>
+      </tr>
+      <tr>
+        <th scope="row">Address</th>
+        <td>{start_address}
+          (<a href={start_maps_link} rel="noopener" target="_blank">see map</a>)
+        </td>
+      </tr>
+    </table>
+    <p class="faq-link">
+      Got further questions? Check our <a href={`${import.meta.env.BASE_URL}/booking/faq`}>booking FAQ page</a>.
+    </p>
   </div>
   <div class="action">
-    <p class="price">
-      <span class="price-value">{price}</span>
-    </p>
     <Button
       as="a"
       href={`${import.meta.env.BASE_URL}/booking/tour`}
       class="book"
       variant="clementine"
+      size="l"
     >
       Book
     </Button>
@@ -58,10 +106,6 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.content {
-  max-width: 900px;
 }
 
 .title {
@@ -138,8 +182,10 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   background-color: inherit;
   padding: 1rem 0 0;
   flex-grow: 1;
+  font-size: 1.125rem;
   position: relative;
   z-index: 1;
+  max-width: 900px;
 
   @include b-desktop {
     font-size: 1.5rem;
@@ -147,32 +193,27 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   }
 }
 
+.faq-link {
+  font-size: 1.125rem;
+}
+
+.info {
+  border-top: dashed 2px var(--accent-color);
+  border-bottom: dashed 2px var(--accent-color);
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+
+  th {
+    text-align: left;
+    padding-right: 1rem;
+
+    &::after {
+      content: ':'
+    }
+  }
+}
+
 .action {
-  border: solid 2px var(--color-azure);
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: fit-content;
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  margin: 0 0 1rem;
-  color: var(--color-azure);
-
-  @include b-desktop {
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-    margin: 0 0 2rem;
-  }
-}
-
-.price {
-  margin: 0;
-
-  @include b-desktop {
-    font-size: 1.25rem;
-  }
-}
-
-.price-value {
-  font-weight: bold;
+  margin-top: 1rem;
 }
 </style>

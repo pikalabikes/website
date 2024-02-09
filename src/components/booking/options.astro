@@ -27,16 +27,14 @@ const { id, description, items, preselected } = Astro.props;
   }
   </ul>
   {
-    items.map(({ frontmatter: { id, title, images, price }, Content }, index) => (
+    items.map(({ frontmatter, Content }, index) => (
       <article
-        id={id}
+        id={frontmatter.id}
         class={`booking-option ${index === 0 && 'booking-option-selected'}`}
         style={`--list-item-index: ${index};`}
       >
         <BookingOption
-          title={title}
-          price={price}
-          images={images}
+          {...frontmatter}
         >
           <Content />
         </BookingOption>
