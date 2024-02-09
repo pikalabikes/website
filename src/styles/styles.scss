@@ -42,8 +42,8 @@ h1 {
 h2 {
   font-size: 36px;
 
-  @include b-desktop {
-    font-size: 48px;
+  @include b-large-desktop {
+    font-size: 40px;
   }
 }
 

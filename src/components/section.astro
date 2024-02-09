@@ -72,11 +72,11 @@ for (const wrapper of imageWrappers) {
 
   @include b-desktop {
     transition: grid-template-columns var(--expand-transition-time);
-    grid-template-columns: minmax(600px, auto) 60%;
+    grid-template-columns: minmax(400px, auto) 60%;
     overflow: hidden;
 
     &:nth-child(2n) {
-      grid-template-columns: 60% minmax(600px, auto);
+      grid-template-columns: 60% minmax(400px, auto);
     }
 
     &.expanded {

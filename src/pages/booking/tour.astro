@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/default.astro';
+import Header from '../../components/header.astro';
+import Form from '../../components/booking/form.astro';
+---
+<Layout pageTitle="Bookings">
+	<Header cafe booking border />
+	<div id="booking" class="booking">
+    <main class="booking-main">
+      <Form />
+    </main>
+	</div>
+</Layout>
+
+<style lang="scss">
+@import '../../styles/breakpoints';
+
+.booking {
+  width: 100vw;
+  overflow: hidden;
+  min-height: 100vh;
+
+  @include b-tablet {
+    display: grid;
+    grid: 1fr / 224px 1fr;
+    gap: 3rem;
+  }
+
+  @include b-desktop {
+    grid: 1fr / 280px 1fr;
+  }
+
+  @include b-large-desktop {
+    grid: 1fr / 300px 1fr;
+    gap: 6rem;
+  }
+}
+
+.booking-form {
+  border: none;
+}
+</style>

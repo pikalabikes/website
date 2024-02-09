@@ -1,13 +1,13 @@
 ---
-import Layout from '../layouts/default.astro';
-import Header from '../components/header.astro';
-import Button from '../components/button.astro';
-import BookingOptions from '../components/booking/options.astro';
+import Layout from '../../layouts/default.astro';
+import Header from '../../components/header.astro';
+import Button from '../../components/button.astro';
+import BookingOptions from '../../components/booking/options.astro';
 
-import { frontmatter as config } from '../../admin/pages/booking/booking.mdx';
+import { frontmatter as config } from '../../../admin/pages/booking/booking.mdx';
 
-const tours = await Astro.glob('../../admin/pages/booking/tours/*.mdx');
-const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
+const tours = await Astro.glob('../../../admin/pages/booking/tours/*.mdx');
+const rental = await Astro.glob('../../../admin/pages/booking/rental/*.mdx');
 ---
 <Layout pageTitle="Bookings">
 	<Header cafe border />
@@ -53,7 +53,7 @@ const rental = await Astro.glob('../../admin/pages/booking/rental/*.mdx');
 </Layout>
 
 <script>
-import setupBookingSelectable from '../components/booking/booking-selectable';
+import setupBookingSelectable from '../../components/booking/booking-selectable';
 
 setupBookingSelectable({
   container: document.getElementById('booking'),
@@ -64,7 +64,7 @@ setupBookingSelectable({
 </script>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+@import '../../styles/breakpoints';
 
 .booking {
   width: 100vw;
