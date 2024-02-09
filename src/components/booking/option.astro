@@ -53,18 +53,18 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
         </td>
       </tr>
       {
-        private_tour && (
-          <tr>
-            <th scope="row">Private tour</th>
-            <td>{private_tour}</td>
-          </tr>
-        )
-      }
-      {
         times && (
           <tr>
             <th scope="row">Times</th>
             <td>{times}</td>
+          </tr>
+        )
+      }
+      {
+        private_tour && (
+          <tr>
+            <th scope="row">Private tour</th>
+            <td>{private_tour}</td>
           </tr>
         )
       }
