@@ -1,4 +1,6 @@
 ---
+import { getImage } from "astro:assets";
+
 import '../styles/variables.scss';
 import '../styles/animations.scss';
 import '../styles/styles.scss';
@@ -17,7 +19,11 @@ if (pageTitle) {
 
 const fullTitle = titleParts.join(' - ');
 
-const { default: { src: socialMediaImage } } = await import(`../../admin/images/${config['social_media_image']}.jpg`);
+const { default: src } = await import(`../../admin/images/${config['social_media_image']}.jpg`);
+const socialMediaImage = await getImage({
+	src,
+	format: 'jpg'
+});
 ---
 
 <html lang="en">
@@ -43,7 +49,7 @@ const { default: { src: socialMediaImage } } = await import(`../../admin/images/
 		<meta property="description" content={config.description} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={config.description} />
-		<meta property="og:image" content={socialMediaImage} />
+		<meta property="og:image" content={socialMediaImage.src} />
 	</head>
 	<body>
 		<div id="page" class="page">
