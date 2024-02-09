@@ -15,14 +15,20 @@ import { Content } from '../../../admin/pages/booking/faq.mdx'
 
 <style lang="scss">
 @import "../../styles/_breakpoints";
+.booking {
+  background: var(--color-marble);
+  min-height: 60vh;
+}
 
 .booking-main {
+  background: var(--color-white);
   padding: 1rem;
   margin-bottom: 2rem;
-  min-height: 60vh;
   max-width: 900px;
 
   @include b-desktop {
+    margin-left: 8rem;
+    margin-bottom: 4rem;
     padding: 2rem 4rem;
   }
 }
@@ -33,7 +39,7 @@ import { Content } from '../../../admin/pages/booking/faq.mdx'
 
 h1 {
   font-size: 32px;
-  margin: 0.5rem 0 0;
+  margin: 0.5rem 0 1rem;
   display: flex;
   align-items: start;
   flex-direction: column;
@@ -42,7 +48,7 @@ h1 {
   @include b-desktop {
     align-items: center;
     flex-direction: row;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     gap: 1rem;
   }
 
