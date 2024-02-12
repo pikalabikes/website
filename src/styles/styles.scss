@@ -116,6 +116,14 @@ a {
   font-size: 14px;
 }
 
+.tablet-only {
+  display: none;
+
+  @include b-tablet {
+    display: revert;
+  }
+}
+
 .desktop-only {
   display: none;
 

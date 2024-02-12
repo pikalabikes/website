@@ -18,14 +18,14 @@ const { home = true, cafe, booking, border = false } = Astro.props;
       }
       {
         booking && (
-        <li class="nav-item desktop-only">
+        <li class="nav-item tablet-only">
           <a class="nav-link" href={`${import.meta.env.BASE_URL}/booking`}>Book bikes & tours</a>
         </li>
         )
       }
       {
         cafe && (
-        <li class="nav-item desktop-only">
+        <li class="nav-item tablet-only">
           <a class="nav-link" href={`${import.meta.env.BASE_URL}/cafe`}>Café</a>
         </li>
         )
@@ -106,7 +106,7 @@ const { home = true, cafe, booking, border = false } = Astro.props;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 
   @include b-desktop {
     gap: 4rem;
