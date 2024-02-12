@@ -12,7 +12,7 @@ import { frontmatter as config } from '../../admin/site.mdx';
 
 const titleParts = [config.title];
 
-const { pageTitle } = Astro.props;
+const { pageTitle, footer } = Astro.props;
 if (pageTitle) {
 	titleParts.unshift(pageTitle);
 }
@@ -54,7 +54,7 @@ const socialMediaImage = await getImage({
 	<body>
 		<div id="page" class="page">
 			<slot/>
-			<Footer />
+			{ footer && <Footer /> }
 		</div>
 		<Waves />
 	</body>

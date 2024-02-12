@@ -10,7 +10,7 @@ const stats = await Astro.glob('../../admin/pages/home/stats/*.mdx');
 
 const getStat = (section) => stats.find(({ frontmatter }) => frontmatter['section'] === section)?.frontmatter;
 ---
-<Layout>
+<Layout footer>
 	<Intro />
 	<main class="home">
 		<StatsSection />
