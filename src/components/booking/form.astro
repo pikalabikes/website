@@ -1,45 +1,29 @@
 ---
 const { src, height } = Astro.props;
 ---
-<div class="form">
-  <div class="spacer"></div>
-  <div class="frame">
-    <iframe
-      src={src}
-      width="375"
-      height={height}
-      frameborder="0"
-      marginheight="0"
-      marginwidth="0"
-    >
-      Loading…
-    </iframe>
-  </div>
-  <p>
-    Having issues with the booking?
-    <br><a href="mailto:contact@pikalabikes.com">Drop us an e-mail</a>
-  </p>
-</div>
+<div class="spacer"></div>
+<iframe
+  src={src}
+  width="375"
+  height={height}
+  frameborder="0"
+  marginheight="0"
+  marginwidth="0"
+>
+  Loading…
+</iframe>
 
-<style lang="scss">
-@import '../../styles/breakpoints';
+<p>
+  Having issues with the booking?
+  <a href="mailto:contact@pikalabikes.com">Drop us an e-mail</a>
+</p>
 
-.form {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 124px);
-}
+<style>
 .spacer {
   background: var(--color-white);
+  height: 2rem;
   margin-top: 3rem;
 }
-
-.frame {
-  overflow: scroll;
-  flex-shrink: 1;
-  flex-grow: 0;
-}
-
 
 iframe {
   background: var(--color-white);
@@ -48,10 +32,7 @@ iframe {
 
 p {
   text-align: center;
-  margin: 0.5rem 0;
-
-  @include b-desktop {
-    font-size: 1.25rem;
-  }
+  font-size: 1.25rem;
+  margin: 3rem;
 }
 </style>

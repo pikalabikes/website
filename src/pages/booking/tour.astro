@@ -20,8 +20,24 @@ import Form from '../../components/booking/form.astro';
 
 .booking {
   width: 100vw;
+  overflow: hidden;
+  min-height: 100vh;
   background: var(--color-marble);
-  height: auto;
+
+  @include b-tablet {
+    display: grid;
+    grid: 1fr / 224px 1fr;
+    gap: 3rem;
+  }
+
+  @include b-desktop {
+    grid: 1fr / 280px 1fr;
+  }
+
+  @include b-large-desktop {
+    grid: 1fr / 300px 1fr;
+    gap: 6rem;
+  }
 }
 
 .booking-form {
