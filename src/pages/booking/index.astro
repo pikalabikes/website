@@ -41,12 +41,14 @@ const rental = await Astro.glob('../../../admin/pages/booking/rental/*.mdx');
         id="tours"
         description={config['tours_description']}
         items={tours}
+        type="tour"
         preselected
       />
       <BookingOptions
         id="bike-rental"
         description={config['rental_description']}
         items={rental}
+        type="bikes"
       />
     </main>
 	</div>

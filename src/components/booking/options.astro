@@ -2,7 +2,7 @@
 import BookingOption from './option.astro';
 import Button from '../button.astro';
 
-const { id, description, items, preselected } = Astro.props;
+const { id, description, items, preselected, type } = Astro.props;
 ---
 <div id={id} class={`booking-options ${ preselected && 'booking-options-selected' }`}>
   <p class="booking-type-description">
@@ -35,6 +35,7 @@ const { id, description, items, preselected } = Astro.props;
       >
         <BookingOption
           {...frontmatter}
+          type={type}
         >
           <Content />
         </BookingOption>
