@@ -107,3 +107,5 @@ In MDX files, text formatting matters a lot - it's usually safer to copy the tex
 5. Your image will now be accessible in various `.mdx` files under its name (without the file extension). For example, if you want to add `pikala-team.jpg` as the section image, you can write `image: 'pikala-team'`
 
 ## For developers
+
+Refer to `src/README.md`.
