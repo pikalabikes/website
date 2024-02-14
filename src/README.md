@@ -1,6 +1,6 @@
 ## Developer documentation
 
-The website is built with [Astro](https://astro.build) as a statically-generated site. The build runs in the GitHub Action configured inside `.github/workflows`.
+The website is built with [Astro](https://astro.build) as a statically-generated site and hosted on GitHub Pages. The build runs in the GitHub Action configured inside `.github/workflows`.
 
 The development build is served on the `/website` path.
 Refer to Astro documentation for how to develop locally.
