@@ -10,6 +10,22 @@ We use GitHub itself as a way to edit text and add images. All content on the we
 MDX files consist of a number of **fields** - key/value pairs and **content**.
 Fields are found at the top of the file, between two divider lines `---`. The content is everything that's after the second `---` divider line. Some MDX files only contain fields, and some only content.
 
+```mdx
+---
+title: 'My title'
+image: 'some-image'
+list-field:
+  - 'list item 1'
+  - 'list item 2'
+  - 'list item 3'
+another-field: 'some text'
+---
+
+# This is a heading
+
+This is my paragraph. **This text is bold**. [This is a link](https://pikalabikes.com). Proident irure incididunt nulla amet fugiat sunt veniam non sit.
+```
+
 The admin folder is organised as follows:
 
 * `site.mdx` is the file that controls site-wide content such as the website title
