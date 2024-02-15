@@ -50,6 +50,13 @@ const socialMediaImage = await getImage({
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={config.description} />
 		<meta property="og:image" content={socialMediaImage.src} />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-76GYN23Q0W"></script>
+		<script lang="js">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-76GYN23Q0W');
+		</script>
 	</head>
 	<body>
 		<div id="page" class="page">
