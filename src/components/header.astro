@@ -4,7 +4,7 @@ import Logo from '../components/logo.astro';
 const { home = true, cafe, booking, border = false } = Astro.props;
 ---
 <header class={`header ${border && 'header--border'}`}>
-  <a href={import.meta.env.BASE_URL} class="logo" aria-hidden="true">
+  <a href="/" class="logo" aria-hidden="true">
     <Logo />
   </a>
   <nav class="nav">
@@ -12,21 +12,21 @@ const { home = true, cafe, booking, border = false } = Astro.props;
       {
         home && (
         <li class="nav-item">
-          <a class="nav-link" href={import.meta.env.BASE_URL}>Home</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
         )
       }
       {
         booking && (
         <li class="nav-item tablet-only">
-          <a class="nav-link" href={`${import.meta.env.BASE_URL}/booking`}>Book bikes & tours</a>
+          <a class="nav-link" href="/booking">Book bikes & tours</a>
         </li>
         )
       }
       {
         cafe && (
         <li class="nav-item tablet-only">
-          <a class="nav-link" href={`${import.meta.env.BASE_URL}/cafe`}>Café</a>
+          <a class="nav-link" href="/cafe">Café</a>
         </li>
         )
       }
