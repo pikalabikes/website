@@ -76,7 +76,7 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
 .hero {
   animation: slide-in-scale 800ms forwards;
   width: 100%;
-  height: 65%;
+  height: 75%;
   object-fit: cover;
   object-position: 60% 30%;
 
@@ -179,8 +179,11 @@ const { default: heroImage } = await import(`../../../admin/images/${config['her
     }
   }
 
-  @include b-desktop {
+  @include b-tablet {
     text-align: center;
+  }
+
+  @include b-desktop {
     padding: 0 1rem 1rem;
   }
 }
