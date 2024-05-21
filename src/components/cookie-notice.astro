@@ -5,7 +5,7 @@ import Button from './button.astro'
 <div id="cookie-notice" class="cookie-notice" hidden>
   <div class="wrapper">
     <div class="content">
-      <div class="title">Cookies let us provide you with the optimal user experience.</div>
+      <div class="title">We use cookies to offer you a better user experience and understand our customers' needs.</div>
       <div class="options">
         <Button id="accept-cookies" data-consent="a" size="m" variant="henna">Accept</Button>
         <Button id="reject-cookies" data-consent="r" size="m">Reject non-essential</Button>
@@ -23,7 +23,7 @@ import Button from './button.astro'
   padding: 1rem;
   position: fixed;
   z-index: 10;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -35,8 +35,9 @@ import Button from './button.astro'
 @include b-tablet {
   .wrapper {
     background: linear-gradient(rgba(0, 0, 0, 0.8), transparent);
-    height: 30vh;
+    min-height: 30vh;
     top: 0;
+    padding: 2rem;
   }
 }
 
