@@ -7,7 +7,7 @@ import '../styles/styles.scss';
 
 import Footer from '../components/footer.astro';
 import Waves from '../components/waves.astro';
-import CookieNotice from '../components/cookie-notice.astro';
+import CookieBanner from '../components/cookie-banner.astro';
 
 import { frontmatter as config } from '../../admin/site.mdx';
 
@@ -54,7 +54,7 @@ const socialMediaImage = await getImage({
 	</head>
 	<body>
 		<div id="page" class="page">
-			<CookieNotice />
+			<CookieBanner />
 			<slot/>
 			{ footer && <Footer /> }
 		</div>

@@ -2,10 +2,13 @@
 import Button from './button.astro'
 ---
 
-<div id="cookie-notice" class="cookie-notice" hidden>
+<div id="cookie-banner" class="cookie-banner" hidden>
   <div class="wrapper">
     <div class="content">
-      <div class="title">We use cookies to offer you a better user experience and understand our customers' needs.</div>
+      <div class="title">
+        We use cookies to offer you a better user experience and understand our customers' needs.
+        <a href="/cookies" target="_blank" rel="noopener">Learn more</a>
+      </div>
       <div class="options">
         <Button id="accept-cookies" data-consent="a" size="m" variant="henna">Accept</Button>
         <Button id="reject-cookies" data-consent="r" size="m">Reject non-essential</Button>
@@ -74,14 +77,14 @@ import Button from './button.astro'
 import { enableCCOnlyIfPossible, setCookieConsent, hasCookieConsent } from '../cookies';
 
 if (!hasCookieConsent()) {
-  const notice = document.getElementById('cookie-notice');
-  notice.hidden = false;
+  const banner = document.getElementById('cookie-banner');
+  banner.hidden = false;
 
   const acceptButton = document.getElementById('accept-cookies');
   const rejectButton = document.getElementById('reject-cookies');
 
   const onButtonClick = ({ target }) => {
-    notice.hidden = true;
+    banner.hidden = true;
     setCookieConsent(target.dataset.consent);
     enableCCOnlyIfPossible();
   };
