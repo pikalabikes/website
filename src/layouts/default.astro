@@ -13,7 +13,7 @@ import { frontmatter as config } from '../../admin/site.mdx';
 
 const titleParts = [config.title];
 
-const { pageTitle, footer } = Astro.props;
+const { pageTitle, footer, gtags = [] } = Astro.props;
 if (pageTitle) {
 	titleParts.unshift(pageTitle);
 }
@@ -60,12 +60,23 @@ const socialMediaImage = await getImage({
 		</div>
 		<Waves />
 		<template id="cookie-consent-only">
+			<!-- adding google tags as meta tags allows us to dynamically set them per page -->
+			<meta name="gtag" content="G-76GYN23Q0W">
+			{
+				gtags.map((gtag) => (
+					<meta name="gtag" content={gtag} />
+				))
+			}
 			<script async src="https://www.googletagmanager.com/gtag/js?id=G-76GYN23Q0W"></script>
 			<script lang="js">
 				window.dataLayer = window.dataLayer || [];
 				function gtag(){dataLayer.push(arguments);}
 				gtag('js', new Date());
-				gtag('config', 'G-76GYN23Q0W');
+
+				const metas = Array.from(document.querySelectorAll('meta[name="gtag"]'));
+				metas.forEach((meta) => {
+					gtag('config', meta.content);
+				});
 			</script>
 		</template>
 	</body>
