@@ -32,12 +32,8 @@ const { pageTitle, pageID } = Astro.props;
     padding: 2rem 4rem;
   }
 }
-</style>
 
-<style is:global lang="scss">
-@import '../styles/breakpoints';
-
-h1 {
+.text-page :global(h1) {
   font-size: 32px;
   margin: 0.5rem 0 1rem;
   display: flex;
@@ -74,20 +70,20 @@ h1 {
   }
 }
 
-h2 {
+.text-page :global(h2) {
   font-size: 28px;
   margin-top: 2rem;
 }
 
-p, ul {
+.text-page :global(p), .text-page :global(ul) {
   font-size: 1.25rem;
 }
 
-p {
+.text-page :global(p) {
   margin: 1rem 0;
 }
 
-main li + li {
+.text-page :global(main) :global(li) + :global(li) {
   margin-top: 0.5rem;
 }
 </style>
