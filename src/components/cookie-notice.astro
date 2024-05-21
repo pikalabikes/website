@@ -1,0 +1,91 @@
+---
+import Button from './button.astro'
+---
+
+<div id="cookie-notice" class="cookie-notice" hidden>
+  <div class="wrapper">
+    <div class="content">
+      <div class="title">Cookies let us provide you with the optimal user experience.</div>
+      <div class="options">
+        <Button id="accept-cookies" data-consent="a" size="m" variant="henna">Accept</Button>
+        <Button id="reject-cookies" data-consent="r" size="m">Reject non-essential</Button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+@import '../styles/breakpoints';
+
+.wrapper {
+  animation: fade-in 500ms 1.5s both;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3));
+  padding: 1rem;
+  position: fixed;
+  z-index: 10;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overscroll-behavior: contain;
+  overflow-x: scroll;
+}
+
+@include b-tablet {
+  .wrapper {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), transparent);
+    height: 30vh;
+    top: 0;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.content {
+  animation: slide-in 500ms 1.5s both;
+  background: white;
+  border-radius: 1rem;
+  border: solid 2px var(--color-henna);
+  padding: 1.5rem;
+  max-width: 600px;
+  box-shadow: 0.5rem 0.5rem var(--color-henna);
+}
+
+@include b-tablet {
+  .content {
+    padding: 2rem;
+    box-shadow: 0.5rem 0.5rem var(--color-henna);
+  }
+}
+
+.options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+</style>
+
+<script>
+import { enableCCOnlyIfPossible, setCookieConsent, hasCookieConsent } from '../cookies';
+
+if (!hasCookieConsent()) {
+  const notice = document.getElementById('cookie-notice');
+  notice.hidden = false;
+
+  const acceptButton = document.getElementById('accept-cookies');
+  const rejectButton = document.getElementById('reject-cookies');
+
+  const onButtonClick = ({ target }) => {
+    notice.hidden = true;
+    setCookieConsent(target.dataset.consent);
+    enableCCOnlyIfPossible();
+  };
+
+  acceptButton.addEventListener('click', onButtonClick);
+  rejectButton.addEventListener('click', onButtonClick);
+}
+</script>
