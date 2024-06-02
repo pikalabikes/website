@@ -5,7 +5,9 @@ color: 'henna'
 side: 'left'
 image: 'cafe3'
 ---
+import { Image } from 'astro:assets';
 import InstagramIcon from '../../../../src/components/socials/instagram.astro';
+import map from '../../../images/map-cafe.png';
 
 E-mail: [cafe@pikalabikes.com](mailto:cafe@pikalabikes.com)
 
@@ -13,11 +15,8 @@ Phone/WhatsApp: [+212 693 649 053](tel:+212693649053)
 
 <InstagramIcon link='http://www.instagram.com/pikalacafe' />
 
-
-<address>
-Riad Larousse<br/>
-Marrakesh 40000<br/>
-Morocco
-</address>
+<a href="https://maps.app.goo.gl/q3fKtAzMNqJT2Rvo8" target="_blank" rel="noopener">
+  <Image src={map} class="map-image" alt="Map to Pikala Cafe" />
+</a>
 
 {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3397.0848635503344!2d-7.997596122710554!3d31.63152674163891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdafef6da0f35aeb%3A0xe81deb9f3ff0b73c!2sPikala%20Cafe!5e0!3m2!1sen!2sma!4v1699915776578!5m2!1sen!2sma" frameborder="0" style="border:0" allowfullscreen="" loading="lazy"></iframe> */}
