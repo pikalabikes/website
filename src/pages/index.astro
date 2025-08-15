@@ -13,8 +13,8 @@ const stats = Object.values(
 );
 
 const getStat = (section) =>
-  stats.find(({ frontmatter }) => frontmatter["section"] === section)
-    ?.frontmatter;
+  // @ts-expect-error
+  stats.find(({ frontmatter: f }) => f["section"] === section)?.frontmatter;
 ---
 
 <Layout footer>

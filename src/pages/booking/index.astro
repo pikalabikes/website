@@ -6,12 +6,14 @@ import BookingOptions from "../../components/booking/options.astro";
 
 import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx";
 
-const tours = Object.values(import.meta.glob(
-  "../../../admin/pages/booking/tours/*.mdx", { eager: true }
+const tours = Object.values(
+  import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
-const rental = Object.values(import.meta.glob(
-  "../../../admin/pages/booking/rental/*.mdx", { eager: true }
-));
+const rental = Object.values(
+  import.meta.glob("../../../admin/pages/booking/rental/*.mdx", {
+    eager: true,
+  }),
+);
 ---
 
 <Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
