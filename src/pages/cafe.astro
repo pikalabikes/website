@@ -1,21 +1,32 @@
 ---
-import Layout from '../layouts/default.astro';
-import Header from '../components/header.astro';
-import Section from '../components/section.astro';
-import Intro from '../components/cafe/intro.astro';
+import Layout from "../layouts/default.astro";
+import Header from "../components/header.astro";
+import Section from "../components/section.astro";
+import Intro from "../components/cafe/intro.astro";
 
-const sections = await Astro.glob('../../admin/pages/cafe/sections/*.mdx');
+const sections = Object.values(
+  import.meta.glob("../../admin/pages/cafe/sections/*.mdx", { eager: true }),
+);
 ---
+
 <Layout pageTitle="Café">
-	<Header booking />
-	<main>
-		<Intro />
-		{
-			sections.map(({ frontmatter: { id, title, image, color, side }, Content }) => (
-				<Section id={id} title={title} image={image} color={color} side={side}>
-					<Content />
-				</Section>
-			))
-		}
-	</main>
+  <Header booking />
+  <main>
+    <Intro />
+    {
+      sections.map(
+        ({ frontmatter: { id, title, image, color, side }, Content }) => (
+          <Section
+            id={id}
+            title={title}
+            image={image}
+            color={color}
+            side={side}
+          >
+            <Content />
+          </Section>
+        ),
+      )
+    }
+  </main>
 </Layout>

@@ -1,9 +1,12 @@
 ---
-import { Image } from 'astro:assets';
-import Chevron from './chevron.astro';
+import { Image } from "astro:assets";
+import Chevron from "./chevron.astro";
 
-const partners = await Astro.glob('../../admin/partners/*.mdx');
+const partners = Object.values(
+  import.meta.glob("../../admin/partners/*.mdx", { eager: true }),
+);
 ---
+
 <footer class="footer">
   <a class="back-to-top" href="#page" aria-label="Back to top">
     <Chevron />
@@ -12,7 +15,9 @@ const partners = await Astro.glob('../../admin/partners/*.mdx');
   <ul class="partners">
     {
       partners.map(async ({ frontmatter: { image, name } }) => {
-        const { default: src } = await import(`../../admin/images/${image}.png`);
+        const { default: src } = await import(
+          `../../admin/images/${image}.png`
+        );
         return (
           <li class="partner">
             <Image class="partner-image" src={src} alt={name} title={name} />
@@ -29,85 +34,85 @@ const partners = await Astro.glob('../../admin/partners/*.mdx');
 </footer>
 
 <style lang="scss">
-@import '../styles/breakpoints';
+  @import "../styles/breakpoints";
 
-.footer {
-  background-color: var(--color-white);
-  color: var(--color-mortar);
-  padding: 1rem;
-  position: relative;
+  .footer {
+    background-color: var(--color-white);
+    color: var(--color-mortar);
+    padding: 1rem;
+    position: relative;
 
-  @include b-desktop {
-    padding: 3rem 3rem 1rem;
+    @include b-desktop {
+      padding: 3rem 3rem 1rem;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -1rem;
+      right: -8rem;
+      background: inherit;
+      clip-path: url(#wave1);
+      height: 1rem;
+      top: calc(-1rem + 1px);
+      z-index: 1;
+    }
   }
 
-  &::before {
-    content: '';
-    display: block;
+  .partners {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    max-width: 1200px;
+
+    @include b-desktop {
+      margin-top: 3rem;
+    }
+  }
+
+  .partner-image {
+    height: 3rem;
+    width: auto;
+
+    @include b-desktop {
+      height: 5rem;
+    }
+  }
+
+  .copyright {
+    margin: 3rem 0 0;
+    text-align: center;
+
+    @include b-desktop {
+      margin-top: 4rem;
+      text-align: left;
+    }
+  }
+
+  .back-to-top {
+    align-items: center;
+    background: var(--color-clementine);
+    border-radius: 64px;
+    color: var(--color-white);
+    display: flex;
+    font-family: Quicksand;
+    font-size: 64px;
+    height: 64px;
+    justify-content: center;
+    line-height: 1;
     position: absolute;
-    left: -1rem;
-    right: -8rem;
-    background: inherit;
-    clip-path: url(#wave1);
-    height: 1rem;
-    top: calc(-1rem + 1px);
-    z-index: 1;
+    right: 2rem;
+    text-decoration: none;
+    top: -24px;
+    width: 64px;
+    z-index: 3;
+
+    @include b-desktop {
+      display: none;
+    }
   }
-}
-
-.partners {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
-  margin: 2rem 0 0;
-  max-width: 1200px;
-
-  @include b-desktop {
-    margin-top: 3rem;
-  }
-}
-
-.partner-image {
-  height: 3rem;
-  width: auto;
-
-  @include b-desktop {
-    height: 5rem;
-  }
-}
-
-.copyright {
-  margin: 3rem 0 0;
-  text-align: center;
-
-  @include b-desktop {
-    margin-top: 4rem;
-    text-align: left;
-  }
-}
-
-.back-to-top {
-  align-items: center;
-  background: var(--color-clementine);
-  border-radius: 64px;
-  color: var(--color-white);
-  display: flex;
-  font-family: Quicksand;
-  font-size: 64px;
-  height: 64px;
-  justify-content: center;
-  line-height: 1;
-  position: absolute;
-  right: 2rem;
-  text-decoration: none;
-  top: -24px;
-  width: 64px;
-  z-index: 3;
-
-  @include b-desktop {
-    display: none;
-  }
-}
 </style>

@@ -1,17 +1,22 @@
 ---
-import Layout from '../../layouts/default.astro';
-import Header from '../../components/header.astro';
-import Button from '../../components/button.astro';
-import BookingOptions from '../../components/booking/options.astro';
+import Layout from "../../layouts/default.astro";
+import Header from "../../components/header.astro";
+import Button from "../../components/button.astro";
+import BookingOptions from "../../components/booking/options.astro";
 
-import { frontmatter as config } from '../../../admin/pages/booking/booking.mdx';
+import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx";
 
-const tours = await Astro.glob('../../../admin/pages/booking/tours/*.mdx');
-const rental = await Astro.glob('../../../admin/pages/booking/rental/*.mdx');
+const tours = Object.values(import.meta.glob(
+  "../../../admin/pages/booking/tours/*.mdx", { eager: true }
+);
+const rental = Object.values(import.meta.glob(
+  "../../../admin/pages/booking/rental/*.mdx", { eager: true }
+));
 ---
-<Layout pageTitle="Bookings" gtags={['AW-16465322938']}>
-	<Header cafe border />
-	<div id="booking" class="booking">
+
+<Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
+  <Header cafe border />
+  <div id="booking" class="booking">
     <aside class="booking-intro">
       <h2>I'd like to</h2>
       <nav class="booking-types">
@@ -39,110 +44,110 @@ const rental = await Astro.glob('../../../admin/pages/booking/rental/*.mdx');
     <main class="booking-main">
       <BookingOptions
         id="tours"
-        description={config['tours_description']}
+        description={config["tours_description"]}
         items={tours}
         type="tour"
         preselected
       />
       <BookingOptions
         id="bike-rental"
-        description={config['rental_description']}
+        description={config["rental_description"]}
         items={rental}
         type="bikes"
       />
     </main>
-	</div>
+  </div>
 </Layout>
 
 <script>
-import setupBookingSelectable from '../../components/booking/booking-selectable';
+  import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-setupBookingSelectable({
-  container: document.getElementById('booking'),
-  optionsClass: 'booking-intro',
-  selectedClass: 'booking-options-selected',
-  toggleClass: 'booking-options-toggle',
-});
+  setupBookingSelectable({
+    container: document.getElementById("booking"),
+    optionsClass: "booking-intro",
+    selectedClass: "booking-options-selected",
+    toggleClass: "booking-options-toggle",
+  });
 </script>
 
 <style lang="scss">
-@import '../../styles/breakpoints';
+  @import "../../styles/breakpoints";
 
-.booking {
-  width: 100vw;
-  overflow: hidden;
-  min-height: 100vh;
+  .booking {
+    width: 100vw;
+    overflow: hidden;
+    min-height: 100vh;
 
-  @include b-tablet {
-    display: grid;
-    grid: 1fr / 224px 1fr;
-    gap: 3rem;
-  }
+    @include b-tablet {
+      display: grid;
+      grid: 1fr / 224px 1fr;
+      gap: 3rem;
+    }
 
-  @include b-desktop {
-    grid: 1fr / 280px 1fr;
-  }
+    @include b-desktop {
+      grid: 1fr / 280px 1fr;
+    }
 
-  @include b-large-desktop {
-    grid: 1fr / 300px 1fr;
-    gap: 6rem;
-  }
-}
-
-.booking-intro {
-  background: var(--color-marble);
-  padding: 2rem 1rem 2rem;
-  position: relative;
-
-  @include b-tablet {
-    padding: 3rem 1rem 2rem 2rem;
-
-    &::before {
-      content: '';
-      display: block;
-      position: absolute;
-      background: inherit;
-      top: -1rem;
-      bottom: -1rem;
-      clip-path: url(#wave6);
-      width: 3rem;
-      height: calc(100% + 1rem);
-      left: auto;
-      right: calc(-3rem + 1px);
+    @include b-large-desktop {
+      grid: 1fr / 300px 1fr;
+      gap: 6rem;
     }
   }
-}
 
-.booking-types {
-  scroll-margin-top: 1rem;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 0.5rem;
+  .booking-intro {
+    background: var(--color-marble);
+    padding: 2rem 1rem 2rem;
+    position: relative;
 
-  @include b-desktop {
-    gap: 1rem;
+    @include b-tablet {
+      padding: 3rem 1rem 2rem 2rem;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        background: inherit;
+        top: -1rem;
+        bottom: -1rem;
+        clip-path: url(#wave6);
+        width: 3rem;
+        height: calc(100% + 1rem);
+        left: auto;
+        right: calc(-3rem + 1px);
+      }
+    }
   }
-}
 
-.booking-options-toggle {
-  &[aria-expanded="true"] {
-    background-color: var(--color-henna);
-    color: var(--color-marble);
+  .booking-types {
+    scroll-margin-top: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+
+    @include b-desktop {
+      gap: 1rem;
+    }
   }
-}
 
-.booking-main {
-  width: 100%;
-  padding-bottom: 2rem;
-
-  @include b-desktop {
-    padding-top: 1.5rem;
+  .booking-options-toggle {
+    &[aria-expanded="true"] {
+      background-color: var(--color-henna);
+      color: var(--color-marble);
+    }
   }
-}
 
-.booking-form {
-  border: none;
-}
+  .booking-main {
+    width: 100%;
+    padding-bottom: 2rem;
+
+    @include b-desktop {
+      padding-top: 1.5rem;
+    }
+  }
+
+  .booking-form {
+    border: none;
+  }
 </style>

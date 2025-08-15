@@ -1,85 +1,89 @@
 ---
-import Stat from './stat.astro';
-import { frontmatter as config } from '../../../admin/pages/home/home.mdx';
+import Stat from "./stat.astro";
+import { frontmatter as config } from "../../../admin/pages/home/home.mdx";
 
-const stats = await Astro.glob('../../../admin/pages/home/stats/*.mdx');
+const stats = Object.values(
+  import.meta.glob("../../../admin/pages/home/stats/*.mdx", { eager: true }),
+);
 ---
+
 <section class="stats-section" id="statistics">
   <div class="content">
     <div class="text">
-      <p>{config['stats_text']}</p>
+      <p>{config["stats_text"]}</p>
     </div>
     <div class="stats">
       {
-        stats.map(({ frontmatter: { value, label, section }}) =>
-          <Stat value={value} label={label} section={section} />)
+        stats.map(({ frontmatter: { value, label, section } }) => (
+          <Stat value={value} label={label} section={section} />
+        ))
       }
     </div>
   </div>
 </section>
 
 <style lang="scss">
-@import '../../styles/breakpoints';
+  @import "../../styles/breakpoints";
 
-.stats-section {
-  background: var(--color-white);
-  padding: 1.5rem;
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  @include b-desktop {
-    padding: 3rem 3rem 6rem;
-  }
-
-  @include b-large-desktop {
-    padding: 3rem 6rem 6rem;
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -1rem;
-    right: -2rem;
+  .stats-section {
     background: var(--color-white);
-    clip-path: url(#wave5);
-    height: 4rem;
-    bottom: calc(-4rem + 1px);
-    z-index: 1;
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    @include b-desktop {
+      padding: 3rem 3rem 6rem;
+    }
+
+    @include b-large-desktop {
+      padding: 3rem 6rem 6rem;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -1rem;
+      right: -2rem;
+      background: var(--color-white);
+      clip-path: url(#wave5);
+      height: 4rem;
+      bottom: calc(-4rem + 1px);
+      z-index: 1;
+    }
   }
-}
 
-.content {
-  display: grid;
-  gap: 1rem;
-  max-width: 1400px;
-
-  @include b-desktop {
-    grid: auto-flow / 1fr 1fr;
-    gap: 4rem;
-  }
-}
-
-.text {
-  font-family: 'Quicksand';
-  font-size: 24px;
-  font-weight: 500;
-
-  @include b-desktop {
-    font-size: 36px;
-  }
-}
-
-.stats {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  @include b-tablet {
+  .content {
     display: grid;
-    grid: auto-flow / 1fr 1fr;
-    gap: 2rem;
+    gap: 1rem;
+    max-width: 1400px;
+
+    @include b-desktop {
+      grid: auto-flow / 1fr 1fr;
+      gap: 4rem;
+    }
   }
-}
+
+  .text {
+    font-family: "Quicksand";
+    font-size: 24px;
+    font-weight: 500;
+
+    @include b-desktop {
+      font-size: 36px;
+    }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include b-tablet {
+      display: grid;
+      grid: auto-flow / 1fr 1fr;
+      gap: 2rem;
+    }
+  }
 </style>
