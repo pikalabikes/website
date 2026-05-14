@@ -7,6 +7,8 @@ const {
   title,
   images,
   price,
+  price_children_4_6, // NEW: Specific age group
+  price_children_0_3,// NEW: Specific age group
   duration,
   languages,
   times,
@@ -45,14 +47,36 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
   <div class="content">
     <slot />
     <table class="info">
-      <tr>
-        <th scope="row">Price</th>
+    <tr>
+        <th scope="row">
+          {type === 'tour' ? 'Price (+7 years old)' : 'Price'}
+        </th>
         <td>
-        {price
-        }{price_children && `, children: ${price_children}`
-        }
+          {price}
+          {/* Fallback for old pages that haven't been updated yet */}
+          {!price_children_4_6 && price_children && `, children: ${price_children}`}
         </td>
       </tr>
+
+      {/* 2. New Row: Children 4-6 years */}
+      {
+        price_children_4_6 && (
+          <tr>
+            <th scope="row">Children 4-6 yr</th>
+            <td>{price_children_4_6}</td>
+          </tr>
+        )
+      }
+
+      {/* 3. New Row: Children 0-3 years */}
+      {
+        price_children_0_3 && (
+          <tr>
+            <th scope="row">Children 0-3 yr</th>
+            <td>{price_children_0_3}</td>
+          </tr>
+        )
+      }
       {
         times && (
           <tr>
