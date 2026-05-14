@@ -53,12 +53,12 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
         </th>
         <td>
           {price}
-          {/* Fallback for old pages that haven't been updated yet */}
+          {/* new children age categorie */}
           {!price_children_4_6 && price_children && `, children: ${price_children}`}
         </td>
       </tr>
 
-      {/* 2. New Row: Children 4-6 years */}
+      {/*  New Row: Children 4-6 years */}
       {
         price_children_4_6 && (
           <tr>
@@ -68,7 +68,7 @@ const imageSrcs = await Promise.all(imageNames.map(importImage));
         )
       }
 
-      {/* 3. New Row: Children 0-3 years */}
+      {/*  New Row: Children 0-3 years */}
       {
         price_children_0_3 && (
           <tr>
