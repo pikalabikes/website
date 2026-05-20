@@ -9,6 +9,16 @@ import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx"
 const tours = Object.values(
   import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
+
+const allRental = Object.values(
+  import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
+);
+
+// Filters Marrakech items and defaults any un-tagged bike files to Marrakech
+const marrakechBikes = allRental.filter(bike => {
+  const city = bike.frontmatter.city?.toLowerCase().trim();
+  return city === 'marrakech' || !city;
+});
 ---
 
 <Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
@@ -47,16 +57,21 @@ const tours = Object.values(
         preselected
       />
       
-      {/* COMMENT: The main gateway container. If they click "Rent a bike", they choose a city path */}
-      <div id="bike-rental" class="booking-options-gateway">
-        <p class="rental-description" style="margin-bottom: 2rem;">{config["rental_description"]}</p>
-        
-        <h3 style="margin-bottom: 1.5rem; color: var(--color-henna, #4a231a);">Please select your location:</h3>
-        <div class="city-switcher">
-          <a href="/booking/marrakech" class="city-btn">Marrakech</a>
-          <a href="/booking/agadir" class="city-btn">Agadir</a>
-        </div>
+      {/* Description paragraph pulled out manually to sit perfectly above city tabs */}
+      <p class="rental-description bike-rental-controlled">{config["rental_description"]}</p>
+      
+      {/* City Switcher Buttons positioned above the 4 type categories */}
+      <div class="city-switcher">
+        <a href="/booking/marrakech" class="city-btn active">Marrakech</a>
+        <a href="/booking/agadir" class="city-btn">Agadir</a>
       </div>
+
+      {/* Renders Marrakech by default on this main landing page split */}
+      <BookingOptions
+        id="bike-rental"
+        items={marrakechBikes}
+        type="bikes"
+      />
     </main>
   </div>
 </Layout>
@@ -75,10 +90,14 @@ const tours = Object.values(
 <style lang="scss">
   @import "../../styles/breakpoints";
 
-  // Styles for the city redirection tabs
-  // ====== FIXED SWITCHER STYLE: Prevents leaking into the tours page ======
+  // Visibility toggles to stop element leaks into tours
+  .bike-rental-controlled {
+    display: none;
+    margin-bottom: 1.5rem;
+  }
+
   .city-switcher {
-    display: none; // 1. Hide the buttons completely by default
+    display: none;
     gap: 1rem;
     margin: 0 0 2rem;
     
@@ -97,7 +116,6 @@ const tours = Object.values(
         background: var(--color-henna, #4a231a);
         color: white;
       }
-      
       &:hover {
         background: var(--color-henna, #4a231a);
         color: white;
@@ -105,13 +123,14 @@ const tours = Object.values(
     }
   }
 
-  // 2. Only reveal the switcher when the "Rent a bike" sidebar tab is expanded/active
-  #booking:has(.booking-options-toggle[aria-controls="bike-rental"][aria-expanded="true"]) .city-switcher {
+  // Wakes up layout elements ONLY when bike rental tab is active
+  .booking-main:has(#bike-rental.booking-options-selected) .bike-rental-controlled {
+    display: block;
+  }
+  .booking-main:has(#bike-rental.booking-options-selected) .city-switcher {
     display: flex;
   }
-  // =========================================================================
 
-  // Keep developer's original layout classes intact below
   .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
   .booking-intro { background: var(--color-marble); padding: 2rem 1rem 2rem; position: relative; @include b-tablet { padding: 3rem 1rem 2rem 2rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
   .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 1rem; } }
