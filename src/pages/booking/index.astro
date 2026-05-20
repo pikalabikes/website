@@ -102,6 +102,16 @@ const agadirBikes = allRental.filter(bike => {
     toggleClass: "booking-options-toggle",
   });
 
+  // ====== NEW FIX START: Force both inner bike components to wake up ======
+  const wakeUpInnerBikes = () => {
+    document.getElementById("marrakech-rental-options")?.classList.add("booking-options-selected");
+    document.getElementById("agadir-rental-options")?.classList.add("booking-options-selected");
+  };
+  
+  // Run this activation immediately when the page loads
+  wakeUpInnerBikes();
+  // ====== NEW FIX END ======
+
   // 2. Swaps visibility between Marrakech and Agadir panes
   const cityButtons = document.querySelectorAll('.city-btn');
   const cityPanes = document.querySelectorAll('.city-pane');
