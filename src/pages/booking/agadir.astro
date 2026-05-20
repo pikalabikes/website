@@ -53,6 +53,8 @@ const agadirBikes = allRental.filter(bike => {
         type="tour"
       />
       
+      <p class="rental-description bike-rental-controlled">{config["rental_description"]}</p>
+      
       <div class="city-switcher">
         <a href="/booking/marrakech" class="city-btn">Marrakech</a>
         <a href="/booking/agadir" class="city-btn active">Agadir</a>
@@ -60,7 +62,6 @@ const agadirBikes = allRental.filter(bike => {
 
       <BookingOptions
         id="bike-rental"
-        description={config["rental_description"]}
         items={agadirBikes}
         type="bikes"
         preselected
@@ -81,7 +82,23 @@ const agadirBikes = allRental.filter(bike => {
 
 <style lang="scss">
   @import "../../styles/breakpoints";
-  .city-switcher { display: flex; gap: 1rem; margin: 0 0 2rem; .city-btn { padding: 0.6rem 2rem; border-radius: 25px; border: 2px solid var(--color-henna, #4a231a); background: transparent; font-weight: bold; font-size: 1.1rem; text-decoration: none; color: var(--color-henna, #4a231a); transition: all 0.2s ease; &.active { background: var(--color-henna, #4a231a); color: white; } } }
+
+  .bike-rental-controlled {
+    display: none;
+    margin-bottom: 1.5rem;
+  }
+  .city-switcher {
+    display: none; gap: 1rem; margin: 0 0 2rem;
+    .city-btn {
+      padding: 0.6rem 2rem; border-radius: 25px; border: 2px solid var(--color-henna, #4a231a); background: transparent; font-weight: bold; font-size: 1.1rem; text-decoration: none; color: var(--color-henna, #4a231a); transition: all 0.2s ease;
+      &.active { background: var(--color-henna, #4a231a); color: white; }
+      &:hover { background: var(--color-henna, #4a231a); color: white; }
+    }
+  }
+
+  .booking-main:has(#bike-rental.booking-options-selected) .bike-rental-controlled { display: block; }
+  .booking-main:has(#bike-rental.booking-options-selected) .city-switcher { display: flex; }
+
   .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
   .booking-intro { background: var(--color-marble); padding: 2rem 1rem 2rem; position: relative; @include b-tablet { padding: 3rem 1rem 2rem 2rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
   .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 1rem; } }
