@@ -56,30 +56,27 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
         type="tour"
         preselected
       />
-    {/* ====== CHANGE 2 START: Wrapped in a container with city toggles and separate content panes ====== */}
+    {/* ====== UPDATED CHANGE 2: Pure Astro layout to prevent blank pages ====== */}
       <div id="bike-rental" hidden>
-        <p class="rental-description" style="margin-bottom: 1.5rem;">{config["rental_description"]}</p>
+        <p class="rental-description" style="margin-bottom: 2rem;">{config["rental_description"]}</p>
         
-        <div class="city-switcher">
-          <button class="city-btn active" data-target="marrakech-bikes">Marrakech</button>
-          <button class="city-btn" data-target="agadir-bikes">Agadir</button>
-        </div>
+        <h3 style="font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
+          🚲 Rentals in Marrakech
+        </h3>
+        <BookingOptions
+          items={marrakechBikes}
+          type="bikes"
+        />
 
-        <div id="marrakech-bikes" class="city-pane">
-          <BookingOptions
-            items={marrakechBikes}
-            type="bikes"
-          />
-        </div>
-
-        <div id="agadir-bikes" class="city-pane" style="display: none;">
-          <BookingOptions
-            items={agadirBikes}
-            type="bikes"
-          />
-        </div>
+        <h3 style="font-size: 1.5rem; margin: 3rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
+          🚲 Rentals in Agadir
+        </h3>
+        <BookingOptions
+          items={agadirBikes}
+          type="bikes"
+        />
       </div>
-      {/* ====== CHANGE 2 END ====== */}
+      {/* ====== END OF UPDATED CHANGE 2 ====== */}
     </main>
   </div>
 </Layout>
