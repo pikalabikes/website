@@ -56,25 +56,35 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
         type="tour"
         preselected
       />
-    {/* ====== UPDATED CHANGE 2: Pure Astro layout to prevent blank pages ====== */}
+    {/* ====== UPDATED CHANGE 2: Added required IDs and Debug helpers ====== */}
       <div id="bike-rental" hidden>
         <p class="rental-description" style="margin-bottom: 2rem;">{config["rental_description"]}</p>
         
         <h3 style="font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
           🚲 Rentals in Marrakech
         </h3>
-        <BookingOptions
-          items={marrakechBikes}
-          type="bikes"
-        />
+        {marrakechBikes.length === 0 ? (
+          <p style="color: red; font-style: italic;">⚠️ Debug Note: 0 Marrakech bike files detected. Check your MDX tags!</p>
+        ) : (
+          <BookingOptions
+            id="marrakech-rental-options"
+            items={marrakechBikes}
+            type="bikes"
+          />
+        )}
 
         <h3 style="font-size: 1.5rem; margin: 3rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
           🚲 Rentals in Agadir
         </h3>
-        <BookingOptions
-          items={agadirBikes}
-          type="bikes"
-        />
+        {agadirBikes.length === 0 ? (
+          <p style="color: red; font-style: italic;">⚠️ Debug Note: 0 Agadir bike files detected. Check your MDX tags!</p>
+        ) : (
+          <BookingOptions
+            id="agadir-rental-options"
+            items={agadirBikes}
+            type="bikes"
+          />
+        )}
       </div>
       {/* ====== END OF UPDATED CHANGE 2 ====== */}
     </main>
@@ -84,35 +94,14 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
 <script>
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
+  // ====== UPDATED CHANGE 3: Restored original script, removed unused toggles ======
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
-//// ====== UPDATED CHANGE 3: Standard browser switching logic ======
-  const cityButtons = document.querySelectorAll('.city-btn');
-  const cityPanes = document.querySelectorAll('.city-pane');
-
-  cityButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-
-      // 1. Swap active button classes
-      cityButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // 2. Safely toggle block vs none display
-      cityPanes.forEach(pane => {
-        if (pane.id === targetId) {
-          pane.style.display = 'block';
-        } else {
-          pane.style.display = 'none';
-        }
-      });
-    });
-  });
-  // ====== CHANGE 3 END ======
+  // ==============================================================================
 </script>
 
 <style lang="scss">
