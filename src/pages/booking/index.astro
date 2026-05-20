@@ -81,12 +81,24 @@ const marrakechBikes = allRental.filter(bike => {
 <script>
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
+  // 1. Original developer script (Keeps sidebar working)
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
+
+  // ====== NEW FIX: Auto-click "Rent a bike" if coming back from Agadir ======
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('view') === 'bikes') {
+    // Find the developer's original sidebar button for renting a bike
+    const bikeSidebarButton = document.querySelector('[aria-controls="bike-rental"]');
+    if (bikeSidebarButton) {
+      (bikeSidebarButton as HTMLElement).click();
+    }
+  }
+  // =========================================================================
 </script>
 
 <style lang="scss">
