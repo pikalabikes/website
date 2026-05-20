@@ -1,0 +1,94 @@
+---
+import Layout from "../../layouts/default.astro";
+import Header from "../../components/header.astro";
+import Button from "../../components/button.astro";
+import BookingOptions from "../../components/booking/options.astro";
+
+import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx";
+
+const tours = Object.values(
+  import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
+);
+
+const allRental = Object.values(
+  import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
+);
+const marrakechBikes = allRental.filter(bike => {
+  const city = bike.frontmatter.city?.toLowerCase().trim();
+  return city === 'marrakech' || !city;
+});
+---
+
+<Layout pageTitle="Bookings - Marrakech" gtags={["AW-16465322938"]}>
+  <Header cafe border />
+  <div id="booking" class="booking">
+    <aside class="booking-intro">
+      <h2>I'd like to</h2>
+      <nav class="booking-types">
+        <Button
+          class="booking-options-toggle"
+          size="l"
+          variant="outline"
+          aria-controls="tours"
+          aria-haspopup="true"
+        >
+          Book a tour
+        </Button>
+        {/* COMMENT: Set to aria-expanded="true" so sidebar shows Rent a Bike active */}
+        <Button
+          class="booking-options-toggle"
+          size="l"
+          variant="outline"
+          aria-controls="bike-rental"
+          aria-haspopup="true"
+          aria-expanded="true"
+        >
+          Rent a bike
+        </Button>
+      </nav>
+    </aside>
+    <main class="booking-main">
+      <BookingOptions
+        id="tours"
+        description={config["tours_description"]}
+        items={tours}
+        type="tour"
+      />
+      
+      <div class="city-switcher">
+        <a href="/booking/marrakech" class="city-btn active">Marrakech</a>
+        <a href="/booking/agadir" class="city-btn">Agadir</a>
+      </div>
+
+      {/* COMMENT: Original ID + preselected tag forces the sub-buttons to display */}
+      <BookingOptions
+        id="bike-rental"
+        description={config["rental_description"]}
+        items={marrakechBikes}
+        type="bikes"
+        preselected
+      />
+    </main>
+  </div>
+</Layout>
+
+<script>
+  import setupBookingSelectable from "../../components/booking/booking-selectable";
+  setupBookingSelectable({
+    container: document.getElementById("booking"),
+    optionsClass: "booking-intro",
+    selectedClass: "booking-options-selected",
+    toggleClass: "booking-options-toggle",
+  });
+</script>
+
+<style lang="scss">
+  @import "../../styles/breakpoints";
+  .city-switcher { display: flex; gap: 1rem; margin: 0 0 2rem; .city-btn { padding: 0.6rem 2rem; border-radius: 25px; border: 2px solid var(--color-henna, #4a231a); background: transparent; font-weight: bold; font-size: 1.1rem; text-decoration: none; color: var(--color-henna, #4a231a); transition: all 0.2s ease; &.active { background: var(--color-henna, #4a231a); color: white; } } }
+  .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
+  .booking-intro { background: var(--color-marble); padding: 2rem 1rem 2rem; position: relative; @include b-tablet { padding: 3rem 1rem 2rem 2rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
+  .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 1rem; } }
+  .booking-options-toggle { &[aria-expanded="true"] { background-color: var(--color-henna); color: var(--color-marble); } }
+  .booking-main { width: 100%; padding-bottom: 2rem; @include b-desktop { padding-top: 1.5rem; } }
+  .booking-form { border: none; }
+</style>
