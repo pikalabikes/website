@@ -9,21 +9,15 @@ import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx"
 const tours = Object.values(
   import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
-// ====== FIXED CHANGE 1: Safe city filtering with automatic fallback ======
+
+// UPDATE 1: Fetch all rentals and filter specifically for Marrakech
 const allRental = Object.values(
   import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
 );
-
-// Fallback: If a bike has no city tag, default it to 'marrakech' so it never goes blank
 const marrakechBikes = allRental.filter(bike => {
   const city = bike.frontmatter.city?.toLowerCase().trim();
-  return city === 'marrakech' || !city;
+  return city === 'marrakech' || !city; // Default fallback to marrakech if tag is missing
 });
-
-const agadirBikes = allRental.filter(bike => {
-  return bike.frontmatter.city?.toLowerCase().trim() === 'agadir';
-});
-// =========================================================================
 ---
 
 <Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
@@ -42,11 +36,12 @@ const agadirBikes = allRental.filter(bike => {
         >
           Book a tour
         </Button>
+        {/* UPDATE 2: Changed aria-controls to target our outer wrapper element */}
         <Button
           class="booking-options-toggle"
           size="l"
           variant="outline"
-          aria-controls="bike-rental"
+          aria-controls="bike-rental-wrapper"
           aria-haspopup="true"
         >
           Rent a bike
@@ -61,32 +56,24 @@ const agadirBikes = allRental.filter(bike => {
         type="tour"
         preselected
       />
-     {/* ====== FIXED CHANGE 2: Removed 'hidden' so the script can unhide it ====== */}
-      <div id="bike-rental">
-        <p class="rental-description" style="margin-bottom: 1.5rem;">{config["rental_description"]}</p>
+      
+      {/* UPDATE 3: Outer wrapper container keeps sidebar toggles functioning smoothly */}
+      <div id="bike-rental-wrapper">
         
+        {/* Visual city navigation styled as link tabs */}
         <div class="city-switcher">
-          <button class="city-btn active" data-target="marrakech-bikes">Marrakech</button>
-          <button class="city-btn" data-target="agadir-bikes">Agadir</button>
+          <a href="/booking" class="city-btn active">Marrakech</a>
+          <a href="/booking-agadir" class="city-btn">Agadir</a>
         </div>
 
-        <div id="marrakech-bikes" class="city-pane">
-          <BookingOptions
-            id="marrakech-rental-options"
-            items={marrakechBikes}
-            type="bikes"
-          />
-        </div>
-
-        <div id="agadir-bikes" class="city-pane" style="display: none;">
-          <BookingOptions
-            id="agadir-rental-options"
-            items={agadirBikes}
-            type="bikes"
-          />
-        </div>
+        {/* Inner component keeps its original ID so style systems don't break */}
+        <BookingOptions
+          id="bike-rental"
+          description={config["rental_description"]}
+          items={marrakechBikes}
+          type="bikes"
+        />
       </div>
-      {/* ====== END OF UPDATED CHANGE 2 ====== */}
     </main>
   </div>
 </Layout>
@@ -94,61 +81,22 @@ const agadirBikes = allRental.filter(bike => {
 <script>
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-  // 1. Keeps your sidebar tabs from breaking
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
-
-  // ====== NEW FIX START: Force both inner bike components to wake up ======
-  const wakeUpInnerBikes = () => {
-    document.getElementById("marrakech-rental-options")?.classList.add("booking-options-selected");
-    document.getElementById("agadir-rental-options")?.classList.add("booking-options-selected");
-  };
-  
-  // Run this activation immediately when the page loads
-  wakeUpInnerBikes();
-  // ====== NEW FIX END ======
-
-  // 2. Swaps visibility between Marrakech and Agadir panes
-  const cityButtons = document.querySelectorAll('.city-btn');
-  const cityPanes = document.querySelectorAll('.city-pane');
-
-  cityButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-
-      cityButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      cityPanes.forEach(pane => {
-        if (pane.id === targetId) {
-          (pane as HTMLElement).style.display = 'block';
-        } else {
-          (pane as HTMLElement).style.display = 'none';
-        }
-      });
-    });
-  });
 </script>
 
 <style lang="scss">
   @import "../../styles/breakpoints";
- // ====== FIXED CHANGE 4: Added layout controls to prevent page leaks ======
-  #bike-rental {
-    display: none; // 1. Keeps the bike section completely hidden by default
 
-    &.booking-options-selected {
-      display: block; // 2. Only reveals the section when "Rent a bike" is clicked
-    }
-  }
-
+  // UPDATE 4: Clean styling for matching city navigation links
   .city-switcher {
     display: flex;
     gap: 1rem;
-    margin: 1.5rem 0 2rem;
+    margin: 0 0 2rem;
     
     .city-btn {
       padding: 0.6rem 2rem;
@@ -156,8 +104,9 @@ const agadirBikes = allRental.filter(bike => {
       border: 2px solid var(--color-henna, #4a231a);
       background: transparent;
       font-weight: bold;
-      cursor: pointer;
       font-size: 1.1rem;
+      text-decoration: none;
+      color: var(--color-henna, #4a231a);
       transition: all 0.2s ease;
 
       &.active {
@@ -166,7 +115,7 @@ const agadirBikes = allRental.filter(bike => {
       }
     }
   }
-  // ====== CHANGE 4 END ======
+
   .booking {
     width: 100vw;
     overflow: hidden;
