@@ -9,16 +9,21 @@ import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx"
 const tours = Object.values(
   import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
-// ====== UPDATED CHANGE 1: Foolproof city filtering ======
+// ====== FIXED CHANGE 1: Safe city filtering with automatic fallback ======
 const allRental = Object.values(
   import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
 );
 
-// .toLowerCase() fixes capital letters like 'Marrakech'
-// .trim() removes any accidental hidden spaces
-const marrakechBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase().trim() === 'marrakech');
-const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase().trim() === 'agadir');
-// ====== CHANGE 1 END ======
+// Fallback: If a bike has no city tag, default it to 'marrakech' so it never goes blank
+const marrakechBikes = allRental.filter(bike => {
+  const city = bike.frontmatter.city?.toLowerCase().trim();
+  return city === 'marrakech' || !city;
+});
+
+const agadirBikes = allRental.filter(bike => {
+  return bike.frontmatter.city?.toLowerCase().trim() === 'agadir';
+});
+// =========================================================================
 ---
 
 <Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
@@ -89,7 +94,7 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
 <script>
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-  // 1. Original developer script (Keeps your sidebar working)
+  // 1. Keeps your sidebar tabs from breaking
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
@@ -97,7 +102,7 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
     toggleClass: "booking-options-toggle",
   });
 
-  // 2. Custom city script (Keeps your Marrakech/Agadir tabs working)
+  // 2. Swaps visibility between Marrakech and Agadir panes
   const cityButtons = document.querySelectorAll('.city-btn');
   const cityPanes = document.querySelectorAll('.city-pane');
 
@@ -105,11 +110,9 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
 
-      // Toggle active style on the buttons
       cityButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Toggle visibility between the city lists
       cityPanes.forEach(pane => {
         if (pane.id === targetId) {
           (pane as HTMLElement).style.display = 'block';
@@ -123,7 +126,15 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
 
 <style lang="scss">
   @import "../../styles/breakpoints";
-  // ====== CHANGE 4 START: Styling rounded custom city buttons ======
+ // ====== FIXED CHANGE 4: Added layout controls to prevent page leaks ======
+  #bike-rental {
+    display: none; // 1. Keeps the bike section completely hidden by default
+
+    &.booking-options-selected {
+      display: block; // 2. Only reveals the section when "Rent a bike" is clicked
+    }
+  }
+
   .city-switcher {
     display: flex;
     gap: 1rem;
