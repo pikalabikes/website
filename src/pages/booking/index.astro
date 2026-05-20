@@ -9,15 +9,6 @@ import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx"
 const tours = Object.values(
   import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
-
-// UPDATE 1: Fetch all rentals and filter specifically for Marrakech
-const allRental = Object.values(
-  import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
-);
-const marrakechBikes = allRental.filter(bike => {
-  const city = bike.frontmatter.city?.toLowerCase().trim();
-  return city === 'marrakech' || !city; // Default fallback to marrakech if tag is missing
-});
 ---
 
 <Layout pageTitle="Bookings" gtags={["AW-16465322938"]}>
@@ -36,12 +27,11 @@ const marrakechBikes = allRental.filter(bike => {
         >
           Book a tour
         </Button>
-        {/* UPDATE 2: Changed aria-controls to target our outer wrapper element */}
         <Button
           class="booking-options-toggle"
           size="l"
           variant="outline"
-          aria-controls="bike-rental-wrapper"
+          aria-controls="bike-rental"
           aria-haspopup="true"
         >
           Rent a bike
@@ -57,22 +47,15 @@ const marrakechBikes = allRental.filter(bike => {
         preselected
       />
       
-      {/* UPDATE 3: Outer wrapper container keeps sidebar toggles functioning smoothly */}
-      <div id="bike-rental-wrapper">
+      {/* COMMENT: The main gateway container. If they click "Rent a bike", they choose a city path */}
+      <div id="bike-rental" class="booking-options-gateway">
+        <p class="rental-description" style="margin-bottom: 2rem;">{config["rental_description"]}</p>
         
-        {/* Visual city navigation styled as link tabs */}
+        <h3 style="margin-bottom: 1.5rem; color: var(--color-henna, #4a231a);">Please select your location:</h3>
         <div class="city-switcher">
-          <a href="/booking?view=bikes" class="city-btn active">Marrakech</a>
+          <a href="/booking/marrakech" class="city-btn">Marrakech</a>
           <a href="/booking/agadir" class="city-btn">Agadir</a>
         </div>
-
-        {/* Inner component keeps its original ID so style systems don't break */}
-        <BookingOptions
-          id="bike-rental"
-          description={config["rental_description"]}
-          items={marrakechBikes}
-          type="bikes"
-        />
       </div>
     </main>
   </div>
@@ -81,30 +64,18 @@ const marrakechBikes = allRental.filter(bike => {
 <script>
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-  // 1. Original developer script (Keeps sidebar working)
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
-
-  // ====== NEW FIX: Auto-click "Rent a bike" if coming back from Agadir ======
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('view') === 'bikes') {
-    // Find the developer's original sidebar button for renting a bike
-    const bikeSidebarButton = document.querySelector('[aria-controls="bike-rental"]');
-    if (bikeSidebarButton) {
-      (bikeSidebarButton as HTMLElement).click();
-    }
-  }
-  // =========================================================================
 </script>
 
 <style lang="scss">
   @import "../../styles/breakpoints";
 
-  // UPDATE 4: Clean styling for matching city navigation links
+  // Styles for the city redirection tabs
   .city-switcher {
     display: flex;
     gap: 1rem;
@@ -121,88 +92,18 @@ const marrakechBikes = allRental.filter(bike => {
       color: var(--color-henna, #4a231a);
       transition: all 0.2s ease;
 
-      &.active {
+      &:hover {
         background: var(--color-henna, #4a231a);
         color: white;
       }
     }
   }
 
-  .booking {
-    width: 100vw;
-    overflow: hidden;
-    min-height: 100vh;
-
-    @include b-tablet {
-      display: grid;
-      grid: 1fr / 224px 1fr;
-      gap: 3rem;
-    }
-
-    @include b-desktop {
-      grid: 1fr / 280px 1fr;
-    }
-
-    @include b-large-desktop {
-      grid: 1fr / 300px 1fr;
-      gap: 6rem;
-    }
-  }
-
-  .booking-intro {
-    background: var(--color-marble);
-    padding: 2rem 1rem 2rem;
-    position: relative;
-
-    @include b-tablet {
-      padding: 3rem 1rem 2rem 2rem;
-
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        background: inherit;
-        top: -1rem;
-        bottom: -1rem;
-        clip-path: url(#wave6);
-        width: 3rem;
-        height: calc(100% + 1rem);
-        left: auto;
-        right: calc(-3rem + 1px);
-      }
-    }
-  }
-
-  .booking-types {
-    scroll-margin-top: 1rem;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.5rem;
-
-    @include b-desktop {
-      gap: 1rem;
-    }
-  }
-
-  .booking-options-toggle {
-    &[aria-expanded="true"] {
-      background-color: var(--color-henna);
-      color: var(--color-marble);
-    }
-  }
-
-  .booking-main {
-    width: 100%;
-    padding-bottom: 2rem;
-
-    @include b-desktop {
-      padding-top: 1.5rem;
-    }
-  }
-
-  .booking-form {
-    border: none;
-  }
+  // Keep developer's original layout classes intact below
+  .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
+  .booking-intro { background: var(--color-marble); padding: 2rem 1rem 2rem; position: relative; @include b-tablet { padding: 3rem 1rem 2rem 2rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
+  .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 1rem; } }
+  .booking-options-toggle { &[aria-expanded="true"] { background-color: var(--color-henna); color: var(--color-marble); } }
+  .booking-main { width: 100%; padding-bottom: 2rem; @include b-desktop { padding-top: 1.5rem; } }
+  .booking-form { border: none; }
 </style>
