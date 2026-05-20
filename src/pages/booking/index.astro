@@ -9,14 +9,15 @@ import { frontmatter as config } from "../../../admin/pages/booking/booking.mdx"
 const tours = Object.values(
   import.meta.glob("../../../admin/pages/booking/tours/*.mdx", { eager: true }),
 );
-// ====== CHANGE 1 START: Split the 8 rental files into two city lists ======
+// ====== UPDATED CHANGE 1: Foolproof city filtering ======
 const allRental = Object.values(
   import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
 );
 
-// Filters the files automatically based on the 'city' tag you added
-const marrakechBikes = allRental.filter(bike => bike.frontmatter.city === 'marrakech');
-const agadirBikes = allRental.filter(bike => bike.frontmatter.city === 'agadir');
+// .toLowerCase() fixes capital letters like 'Marrakech'
+// .trim() removes any accidental hidden spaces
+const marrakechBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase().trim() === 'marrakech');
+const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase().trim() === 'agadir');
 // ====== CHANGE 1 END ======
 ---
 
@@ -92,7 +93,7 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city === 'agadir')
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
-// ====== CHANGE 3 START: JavaScript logic to handle switching cities on click ======
+//// ====== UPDATED CHANGE 3: Standard browser switching logic ======
   const cityButtons = document.querySelectorAll('.city-btn');
   const cityPanes = document.querySelectorAll('.city-pane');
 
@@ -100,16 +101,16 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city === 'agadir')
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
 
-      // 1. Swap the active color on the buttons
+      // 1. Swap active button classes
       cityButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // 2. Hide the current city pile and show the selected city pile
+      // 2. Safely toggle block vs none display
       cityPanes.forEach(pane => {
         if (pane.id === targetId) {
-          (pane as HTMLElement).style.display = 'block';
+          pane.style.display = 'block';
         } else {
-          (pane as HTMLElement).style.display = 'none';
+          pane.style.display = 'none';
         }
       });
     });
