@@ -76,8 +76,9 @@ const tours = Object.values(
   @import "../../styles/breakpoints";
 
   // Styles for the city redirection tabs
+  // ====== FIXED SWITCHER STYLE: Prevents leaking into the tours page ======
   .city-switcher {
-    display: flex;
+    display: none; // 1. Hide the buttons completely by default
     gap: 1rem;
     margin: 0 0 2rem;
     
@@ -92,12 +93,23 @@ const tours = Object.values(
       color: var(--color-henna, #4a231a);
       transition: all 0.2s ease;
 
+      &.active {
+        background: var(--color-henna, #4a231a);
+        color: white;
+      }
+      
       &:hover {
         background: var(--color-henna, #4a231a);
         color: white;
       }
     }
   }
+
+  // 2. Only reveal the switcher when the "Rent a bike" sidebar tab is expanded/active
+  #booking:has(.booking-options-toggle[aria-controls="bike-rental"][aria-expanded="true"]) .city-switcher {
+    display: flex;
+  }
+  // =========================================================================
 
   // Keep developer's original layout classes intact below
   .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
