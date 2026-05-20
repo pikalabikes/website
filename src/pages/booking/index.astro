@@ -92,16 +92,39 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
 </Layout>
 
 <script>
+====== UPDATED CHANGE 3: Standard browser switching logic ======
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-  // ====== UPDATED CHANGE 3: Restored original script, removed unused toggles ======
+  // 1. Keeps the sidebar working
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
     selectedClass: "booking-options-selected",
     toggleClass: "booking-options-toggle",
   });
-  // ==============================================================================
+
+  // 2. Keeps the city switch buttons working
+  const cityButtons = document.querySelectorAll('.city-btn');
+  const cityPanes = document.querySelectorAll('.city-pane');
+
+  cityButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+
+      cityButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cityPanes.forEach(pane => {
+        // Safe check to make sure the elements exist before changing them
+        if (pane.id === targetId) {
+          (pane as HTMLElement).style.display = 'block';
+        } else {
+          (pane as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+// =================================================================
 </script>
 
 <style lang="scss">
