@@ -56,35 +56,30 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
         type="tour"
         preselected
       />
-    {/* ====== UPDATED CHANGE 2: Added required IDs and Debug helpers ====== */}
-      <div id="bike-rental" hidden>
-        <p class="rental-description" style="margin-bottom: 2rem;">{config["rental_description"]}</p>
+     {/* ====== FIXED CHANGE 2: Removed 'hidden' so the script can unhide it ====== */}
+      <div id="bike-rental">
+        <p class="rental-description" style="margin-bottom: 1.5rem;">{config["rental_description"]}</p>
         
-        <h3 style="font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
-          🚲 Rentals in Marrakech
-        </h3>
-        {marrakechBikes.length === 0 ? (
-          <p style="color: red; font-style: italic;">⚠️ Debug Note: 0 Marrakech bike files detected. Check your MDX tags!</p>
-        ) : (
+        <div class="city-switcher">
+          <button class="city-btn active" data-target="marrakech-bikes">Marrakech</button>
+          <button class="city-btn" data-target="agadir-bikes">Agadir</button>
+        </div>
+
+        <div id="marrakech-bikes" class="city-pane">
           <BookingOptions
             id="marrakech-rental-options"
             items={marrakechBikes}
             type="bikes"
           />
-        )}
+        </div>
 
-        <h3 style="font-size: 1.5rem; margin: 3rem 0 1rem; color: var(--color-henna, #4a231a); border-bottom: 2px solid var(--color-marble); padding-bottom: 0.5rem;">
-          🚲 Rentals in Agadir
-        </h3>
-        {agadirBikes.length === 0 ? (
-          <p style="color: red; font-style: italic;">⚠️ Debug Note: 0 Agadir bike files detected. Check your MDX tags!</p>
-        ) : (
+        <div id="agadir-bikes" class="city-pane" style="display: none;">
           <BookingOptions
             id="agadir-rental-options"
             items={agadirBikes}
             type="bikes"
           />
-        )}
+        </div>
       </div>
       {/* ====== END OF UPDATED CHANGE 2 ====== */}
     </main>
@@ -92,10 +87,9 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
 </Layout>
 
 <script>
-====== UPDATED CHANGE 3: Standard browser switching logic ======
   import setupBookingSelectable from "../../components/booking/booking-selectable";
 
-  // 1. Keeps the sidebar working
+  // 1. Original developer script (Keeps your sidebar working)
   setupBookingSelectable({
     container: document.getElementById("booking"),
     optionsClass: "booking-intro",
@@ -103,7 +97,7 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
     toggleClass: "booking-options-toggle",
   });
 
-  // 2. Keeps the city switch buttons working
+  // 2. Custom city script (Keeps your Marrakech/Agadir tabs working)
   const cityButtons = document.querySelectorAll('.city-btn');
   const cityPanes = document.querySelectorAll('.city-pane');
 
@@ -111,11 +105,12 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
 
+      // Toggle active style on the buttons
       cityButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      // Toggle visibility between the city lists
       cityPanes.forEach(pane => {
-        // Safe check to make sure the elements exist before changing them
         if (pane.id === targetId) {
           (pane as HTMLElement).style.display = 'block';
         } else {
@@ -124,7 +119,6 @@ const agadirBikes = allRental.filter(bike => bike.frontmatter.city?.toLowerCase(
       });
     });
   });
-// =================================================================
 </script>
 
 <style lang="scss">
