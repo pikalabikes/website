@@ -14,7 +14,6 @@ const allRental = Object.values(
   import.meta.glob("../../../admin/pages/booking/rental/*.mdx", { eager: true }),
 );
 
-// Filters Marrakech items and defaults any un-tagged bike files to Marrakech
 const marrakechBikes = allRental.filter(bike => {
   const city = bike.frontmatter.city?.toLowerCase().trim();
   return city === 'marrakech' || !city;
@@ -57,16 +56,17 @@ const marrakechBikes = allRental.filter(bike => {
         preselected
       />
       
-      {/* Description paragraph pulled out manually to sit perfectly above city tabs */}
-      <p class="rental-description bike-rental-controlled">{config["rental_description"]}</p>
+      {/* Restored developer's native styling class '.description' */}
+      <p class="description bike-rental-controlled">{config["rental_description"]}</p>
       
-      {/* City Switcher Buttons positioned above the 4 type categories */}
+      {/* New clean instruction line */}
+      <div class="location-label bike-rental-controlled">Choose your location:</div>
+      
       <div class="city-switcher">
         <a href="/booking/marrakech" class="city-btn active">Marrakech</a>
         <a href="/booking/agadir" class="city-btn">Agadir</a>
       </div>
 
-      {/* Renders Marrakech by default on this main landing page split */}
       <BookingOptions
         id="bike-rental"
         items={marrakechBikes}
@@ -90,24 +90,31 @@ const marrakechBikes = allRental.filter(bike => {
 <style lang="scss">
   @import "../../styles/breakpoints";
 
-  // Visibility toggles to stop element leaks into tours
+  // Shared visibility control for rental views
   .bike-rental-controlled {
     display: none;
-    margin-bottom: 1.5rem;
+  }
+
+  // Clean location prompt text matching site rules
+  .location-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-henna, #4a231a);
+    margin: 1.5rem 0 0.5rem 0;
   }
 
   .city-switcher {
     display: none;
     gap: 1rem;
-    margin: 0 0 2rem;
+    margin: 0 0 1rem 0; // Tightened bottom margin to close gap with category elements
     
     .city-btn {
-      padding: 0.6rem 2rem;
+      padding: 0.5rem 2rem;
       border-radius: 25px;
       border: 2px solid var(--color-henna, #4a231a);
       background: transparent;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       text-decoration: none;
       color: var(--color-henna, #4a231a);
       transition: all 0.2s ease;
@@ -123,7 +130,7 @@ const marrakechBikes = allRental.filter(bike => {
     }
   }
 
-  // Wakes up layout elements ONLY when bike rental tab is active
+  // Safe activation systems
   .booking-main:has(#bike-rental.booking-options-selected) .bike-rental-controlled {
     display: block;
   }
