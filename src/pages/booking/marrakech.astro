@@ -89,11 +89,15 @@ const marrakechBikes = allRental.filter(bike => {
   .bike-rental-controlled {
     display: none;
   }
+  .description {
+    font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; color: inherit;
+    @include b-desktop { font-size: 1.15rem; }
+  }
   .location-label {
     font-size: 1rem; font-weight: bold; color: var(--color-henna, #4a231a); margin: 1.5rem 0 0.5rem 0;
   }
   .city-switcher {
-    display: none; gap: 1rem; margin: 0 0 1rem 0;
+    display: none; gap: 1rem; margin: 0 0 0.75rem 0;
     .city-btn {
       padding: 0.5rem 2rem; border-radius: 25px; border: 2px solid var(--color-henna, #4a231a); background: transparent; font-weight: bold; font-size: 1.05rem; text-decoration: none; color: var(--color-henna, #4a231a); transition: all 0.2s ease;
       &.active { background: var(--color-henna, #4a231a); color: white; }
