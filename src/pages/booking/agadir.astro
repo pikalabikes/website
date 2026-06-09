@@ -85,9 +85,26 @@ const agadirBikes = allRental.filter(bike => {
 <style lang="scss">
   @import "../../styles/breakpoints";
 
-  .bike-rental-controlled {
+.bike-rental-controlled {
     display: none;
   }
+
+  // Clean, professional layout matching the tour description style
+  .description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #2d2d2d;                // Solid dark charcoal text matching your image
+    max-width: 68ch;               // Restricts the line length so it wraps beautifully exactly like your photo
+    white-space: pre-line;         // Ensures paragraph breaks from the MDX file work correctly
+    margin-top: 0;
+    margin-bottom: 1.75rem;        // Balanced space before the buttons/switcher start
+
+    @include b-desktop {
+      font-size: 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+  }
+
   .location-label {
     font-size: 1rem; font-weight: bold; color: var(--color-henna, #4a231a); margin: 1.5rem 0 0.5rem 0;
   }
