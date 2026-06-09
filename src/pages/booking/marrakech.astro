@@ -89,26 +89,25 @@ const marrakechBikes = allRental.filter(bike => {
   .bike-rental-controlled {
     display: none;
   }
-// 1. Fixes font family, size, and text wrapping perfectly to match the reference
+// Uses the developer's exact typography matrix from the tour page
   .description {
-    font-family: inherit;          // FORCES the text to use your site's premium geometric font
-    font-size: 1.15rem;            // Matches the exact visual weight of the tour description
-    line-height: 1.65;             // Gives the sentences elegant, breathable spacing
-    color: #2b2b2b;                // Deep rich charcoal matching the site's UI elements
-    max-width: 64ch;               // Constraints line length so it wraps exactly like your reference image
-    white-space: pre-line;         // Preserves formatting line breaks
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    display: block !important;
+    width: 100% !important;
+    max-width: 900px !important;       // Developer's exact layout restriction
+    font-size: 1.25rem !important;     // Developer's exact mobile size
+    line-height: 1.6 !important;
+    color: #2b2b2b !important;
+    white-space: normal !important;    // Fixes the vertical text squishing bug
+    margin: 1.5rem 0 1.5rem 0 !important;
 
     @include b-desktop {
-      font-size: 1.2rem;
-      margin-bottom: 1.75rem;
+      font-size: 1.5rem !important;    // Developer's exact desktop size
+      margin: 0 0 2rem 0 !important;
     }
   }
 
-  // 2. Erases the massive empty vertical space below the city tabs
-  #bike-rental {
-    margin-top: 0 !important;
+  // Smashes the component's internal 2rem top padding to eliminate the ghost space
+  div.booking-options#bike-rental {
     padding-top: 0 !important;
   }
   .location-label {
