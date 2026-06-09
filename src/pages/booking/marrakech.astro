@@ -89,9 +89,19 @@ const marrakechBikes = allRental.filter(bike => {
   .bike-rental-controlled {
     display: none;
   }
+// Standardized description layout matching the native developer format
   .description {
-    font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; color: inherit;
-    @include b-desktop { font-size: 1.15rem; }
+    font-size: 1.1rem; 
+    line-height: 1.6; 
+    margin-bottom: 1.5rem; 
+    color: var(--color-text, #333333); // Uses proper content text color instead of generic inherit
+    max-width: 65ch;                   // Restricts line length for clean, professional readability
+    white-space: pre-line;             // Preserves line breaks and paragraphs from the CMS file
+
+    @include b-desktop { 
+      font-size: 1.15rem; 
+      margin-bottom: 2rem;
+    }
   }
   .location-label {
     font-size: 1rem; font-weight: bold; color: var(--color-henna, #4a231a); margin: 1.5rem 0 0.5rem 0;
