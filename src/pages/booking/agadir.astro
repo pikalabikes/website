@@ -89,20 +89,31 @@ const agadirBikes = allRental.filter(bike => {
     display: none;
   }
 
-  // Clean, professional layout matching the tour description style
+.bike-rental-controlled {
+    display: none;
+  }
+
+  // 1. Fixes font family, size, and text wrapping perfectly to match the reference
   .description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #2d2d2d;                // Solid dark charcoal text matching your image
-    max-width: 68ch;               // Restricts the line length so it wraps beautifully exactly like your photo
-    white-space: pre-line;         // Ensures paragraph breaks from the MDX file work correctly
-    margin-top: 0;
-    margin-bottom: 1.75rem;        // Balanced space before the buttons/switcher start
+    font-family: inherit;          // FORCES the text to use your site's premium geometric font
+    font-size: 1.15rem;            // Matches the exact visual weight of the tour description
+    line-height: 1.65;             // Gives the sentences elegant, breathable spacing
+    color: #2b2b2b;                // Deep rich charcoal matching the site's UI elements
+    max-width: 64ch;               // Constraints line length so it wraps exactly like your reference image
+    white-space: pre-line;         // Preserves formatting line breaks
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
 
     @include b-desktop {
-      font-size: 1.15rem;
-      margin-bottom: 2.25rem;
+      font-size: 1.2rem;
+      margin-bottom: 1.75rem;
     }
+  }
+
+  // 2. Erases the massive empty vertical space below the city tabs
+  #bike-rental {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   .location-label {
