@@ -89,18 +89,19 @@ const marrakechBikes = allRental.filter(bike => {
   .bike-rental-controlled {
     display: none;
   }
-// This matches the exact typography blueprint of the tour component
+// Clean, professional layout matching the tour description style
   .description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: var(--color-text, #333333); // Inherits the exact global body text color
-    max-width: 68ch;                   // Matches standard developer reading-width layouts
-    white-space: pre-line;             // Respects the original paragraph breaks from your MDX file
-    margin-bottom: 1.5rem;
+    color: #2d2d2d;                // Solid dark charcoal text matching your image
+    max-width: 68ch;               // Restricts the line length so it wraps beautifully exactly like your photo
+    white-space: pre-line;         // Ensures paragraph breaks from the MDX file work correctly
+    margin-top: 0;
+    margin-bottom: 1.75rem;        // Balanced space before the buttons/switcher start
 
     @include b-desktop {
       font-size: 1.15rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
     }
   }
   .location-label {
