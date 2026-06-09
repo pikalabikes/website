@@ -90,9 +90,30 @@ const marrakechBikes = allRental.filter(bike => {
 <style lang="scss">
   @import "../../styles/breakpoints";
 
-  // Shared visibility control for rental views
+ // Shared visibility control for rental views
   .bike-rental-controlled {
     display: none;
+  }
+
+  // NEW: Standardizes the rental description when revealed on the index page
+  .description {
+    width: 100%;
+    max-width: 900px;                 // Matches developer's exact layout width
+    font-size: 1.25rem;               // Matches developer's exact mobile size
+    line-height: 1.6;
+    color: #2b2b2b;                   // Clean, solid text color
+    white-space: normal;              // Prevents the vertical squishing bug
+    margin: 1.5rem 0 1.5rem 0;
+
+    @include b-desktop {
+      font-size: 1.5rem;              // Matches developer's exact desktop size
+      margin: 0 0 2rem 0;
+    }
+  }
+
+  // NEW: Eliminates the component's top padding gap on the index page
+  div.booking-options#bike-rental {
+    padding-top: 0 !important;
   }
 
   // Clean location prompt text matching site rules
@@ -102,7 +123,6 @@ const marrakechBikes = allRental.filter(bike => {
     color: var(--color-henna, #4a231a);
     margin: 1.5rem 0 0.5rem 0;
   }
-
   .city-switcher {
     display: none;
     gap: 1rem;
