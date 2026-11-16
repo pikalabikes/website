@@ -30,6 +30,20 @@ const { home = true, cafe, booking, border = false } = Astro.props;
         </li>
         )
       }
+
+      <!-- Language Dropdown (6 lines) -->
+      <li class="nav-item notranslate">
+        <div class="gtranslate_wrapper"></div>
+        <script is:inline>
+          window.gtranslateSettings = {
+            default_language: "en",
+            native_language_names: true,
+            languages: ["en", "de", "fr", "zh-CN", "ar"],
+            wrapper_selector: ".gtranslate_wrapper"
+          };
+        </script>
+        <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
+      </li>
     </ul>
   </nav>
 </header>
@@ -106,6 +120,7 @@ const { home = true, cafe, booking, border = false } = Astro.props;
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
   gap: 2rem;
 
   @include b-desktop {
@@ -126,5 +141,18 @@ const { home = true, cafe, booking, border = false } = Astro.props;
   &:hover {
     text-decoration-color: currentColor;
   }
+}
+
+/* Style the dropdown to match Pikala's menu */
+:global(.gt_selector) {
+  font-family: Quicksand, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-clementine);
+  background: var(--color-white);
+  border: 2px solid var(--color-clementine);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
 }
 </style>
