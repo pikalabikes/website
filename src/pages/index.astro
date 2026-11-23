@@ -94,20 +94,16 @@ const marrakechBikes = allRental.filter(bike => {
   .landing-title {
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-size: clamp(2.1rem, 4vw, 3.5rem);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
     line-height: 1.1;
     letter-spacing: 0.02em;
     color: var(--color-clementine);
     text-align: center;
     margin: 0;
-    padding: 1.5rem 1rem 0.5rem;
-
-    @include b-tablet {
-      padding: 2rem 1rem 0.5rem;
-    }
+    padding: 1rem 1rem 0.25rem;
 
     @include b-desktop {
-      padding: 0 1rem 1rem;
+      padding: 0 1.5rem 0.5rem;
     }
   }
 
@@ -121,23 +117,28 @@ const marrakechBikes = allRental.filter(bike => {
     display: none;
   }
 
-  // NEW: Standardizes the rental description when revealed on the index page
+  // Standardizes the rental description when revealed on the index page
   .description {
     width: 100%;
-    max-width: 900px;                 // Matches developer's exact layout width
-    font-size: 1.25rem;               // Matches developer's exact mobile size
-    line-height: 1.6;
-    color: #2b2b2b;                   // Clean, solid text color
-    white-space: normal;              // Prevents the vertical squishing bug
-    margin: 1.5rem 0 1.5rem 0;
+    max-width: 900px;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #2b2b2b;
+    white-space: normal;
+    margin: 1rem 0;
+    padding: 0 1rem;
+
+    @include b-tablet {
+      padding: 0 1.5rem;
+    }
 
     @include b-desktop {
-      font-size: 1.5rem;              // Matches developer's exact desktop size
-      margin: 0 0 2rem 0;
+      font-size: 1.2rem;
+      margin: 0 0 1.25rem 0;
     }
   }
 
-  // NEW: Eliminates the component's top padding gap on the index page
+  // Eliminates the component's top padding gap on the index page
   div.booking-options#bike-rental {
     padding-top: 0 !important;
   }
@@ -147,12 +148,22 @@ const marrakechBikes = allRental.filter(bike => {
     font-size: 1rem;
     font-weight: bold;
     color: var(--color-henna, #4a231a);
-    margin: 1.5rem 0 0.5rem 0;
+    margin: 1rem 0 0.5rem 0;
+    padding: 0 1rem;
+
+    @include b-tablet {
+      padding: 0 1.5rem;
+    }
   }
   .city-switcher {
     display: none;
     gap: 1rem;
-    margin: 0 0 1rem 0; // Tightened bottom margin to close gap with category elements
+    margin: 0 0 1rem 0;
+    padding: 0 1rem;
+
+    @include b-tablet {
+      padding: 0 1.5rem;
+    }
     
     .city-btn {
       padding: 0.5rem 2rem;
@@ -184,10 +195,10 @@ const marrakechBikes = allRental.filter(bike => {
     display: flex;
   }
 
-  .booking { width: 100vw; overflow: hidden; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 224px 1fr; gap: 3rem; } @include b-desktop { grid: 1fr / 280px 1fr; } @include b-large-desktop { grid: 1fr / 300px 1fr; gap: 6rem; } }
-  .booking-intro { background: var(--color-marble); padding: 2rem 1rem 2rem; position: relative; @include b-tablet { padding: 3rem 1rem 2rem 2rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
-  .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 1rem; } }
+  .booking { width: 100%; max-width: 100%; overflow-x: clip; min-height: 100vh; @include b-tablet { display: grid; grid: 1fr / 210px 1fr; gap: 2rem; } @include b-desktop { grid: 1fr / 250px 1fr; } @include b-large-desktop { grid: 1fr / 270px 1fr; gap: 3.5rem; } }
+  .booking-intro { background: var(--color-marble); padding: 1.5rem 1rem; position: relative; @include b-tablet { padding: 2rem 1rem 2rem 1.5rem; &::before { content: ""; display: block; position: absolute; background: inherit; top: -1rem; bottom: -1rem; clip-path: url(#wave6); width: 3rem; height: calc(100% + 1rem); left: auto; right: calc(-3rem + 1px); } } }
+  .booking-types { scroll-margin-top: 1rem; margin-top: 1rem; display: flex; flex-direction: column; align-items: start; gap: 0.5rem; @include b-desktop { gap: 0.75rem; } }
   .booking-options-toggle { &[aria-expanded="true"] { background-color: var(--color-henna); color: var(--color-marble); } }
-  .booking-main { width: 100%; padding-bottom: 2rem; @include b-desktop { padding-top: 1.5rem; } }
+  .booking-main { width: 100%; padding-bottom: 2rem; @include b-desktop { padding-top: 1rem; } }
   .booking-form { border: none; }
 </style>
