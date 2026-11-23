@@ -111,6 +111,11 @@ const marrakechBikes = allRental.filter(bike => {
     }
   }
 
+  // Hide the tours title when Rent a bike is selected
+  .booking-main:has(#bike-rental.booking-options-selected) .landing-title {
+    display: none;
+  }
+
   // Shared visibility control for rental views
   .bike-rental-controlled {
     display: none;
