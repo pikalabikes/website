@@ -30,7 +30,7 @@ const socialMediaImage = await getImage({
 <html lang="en" prefix="og: http://ogp.me/ns#">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@ const socialMediaImage = await getImage({
 		<meta name="application-name" content="Pikala Bikes">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
-		<meta name=”robots” content="index, follow">
+		<meta name="robots" content="index, follow">
 		<meta name="author" content="https://fiala.space" />
 		<meta property="description" content={config.description} />
 		<meta property="og:title" content={fullTitle} />
@@ -84,7 +84,8 @@ const socialMediaImage = await getImage({
 
 <style lang="scss">
 .page {
-	width: 100vw;
-	overflow: hidden;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: clip;
 }
 </style>
