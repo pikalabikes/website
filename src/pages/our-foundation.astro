@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/default.astro";
+import Section from "../components/section.astro";
+import Intro from "../components/home/intro.astro";
+import StatsSection from "../components/home/stats-section.astro";
+import VideoSection from "../components/home/video-section.astro";
+
+const sections = Object.values(
+  import.meta.glob("../../admin/pages/home/sections/*.mdx", { eager: true }),
+);
+const stats = Object.values(
+  import.meta.glob("../../admin/pages/home/stats/*.mdx", { eager: true }),
+);
+
+const getStat = (section) =>
+  // @ts-expect-error
+  stats.find(({ frontmatter: f }) => f["section"] === section)?.frontmatter;
+---
+
+<Layout footer>
+  <Intro />
+  <main class="home">
+    <StatsSection />
+    <VideoSection />
+    {
+      sections.map(
+        ({ frontmatter: { id, title, image, color, side }, Content }) => (
+          <Section
+            id={id}
+            title={title}
+            image={image}
+            color={color}
+            side={side}
+            stat={getStat(id)}
+          >
+            <Content />
+          </Section>
+        ),
+      )
+    }
+  </main>
+</Layout>
