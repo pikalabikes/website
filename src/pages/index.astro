@@ -48,6 +48,7 @@ const marrakechBikes = allRental.filter(bike => {
       </nav>
     </aside>
     <main class="booking-main">
+      <h1 class="landing-title">PIKALABIKES TOURS</h1>
       <BookingOptions
         id="tours"
         description={config["tours_description"]}
@@ -90,7 +91,26 @@ const marrakechBikes = allRental.filter(bike => {
 <style lang="scss">
   @import "../styles/breakpoints";
 
- // Shared visibility control for rental views
+  .landing-title {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    color: var(--color-clementine);
+    margin: 0;
+    padding: 1.5rem 1rem 0.5rem;
+
+    @include b-tablet {
+      padding: 2rem 1rem 0.5rem 0;
+    }
+
+    @include b-desktop {
+      padding: 0 1rem 1rem 0;
+    }
+  }
+
+  // Shared visibility control for rental views
   .bike-rental-controlled {
     display: none;
   }
