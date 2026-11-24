@@ -59,6 +59,21 @@ const socialMediaImage = await getImage({
 			{ footer && <Footer /> }
 		</div>
 		<Waves />
+
+		<!-- Global Language Dropdown (All Pages) -->
+		<div class="gt-floating-wrap notranslate">
+			<div class="gtranslate_wrapper"></div>
+		</div>
+		<script is:inline>
+			window.gtranslateSettings = {
+				default_language: "en",
+				native_language_names: true,
+				languages: ["en", "de", "fr", "zh-CN", "ar"],
+				wrapper_selector: ".gtranslate_wrapper"
+			};
+		</script>
+		<script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
+
 		<template id="cookie-consent-only">
 			<!-- adding google tags as meta tags allows us to dynamically set them per page -->
 			<meta name="gtag" content="G-76GYN23Q0W">
@@ -83,9 +98,37 @@ const socialMediaImage = await getImage({
 </html>
 
 <style lang="scss">
+@import '../styles/breakpoints';
+
 .page {
 	width: 100%;
 	max-width: 100%;
 	overflow-x: clip;
+}
+
+.gt-floating-wrap {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 9999;
+
+	@include b-tablet {
+		top: 1.15rem;
+		right: 1.5rem;
+		bottom: auto;
+	}
+}
+
+:global(.gt_selector) {
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	color: var(--color-clementine);
+	background: var(--color-white);
+	border: 2px solid var(--color-clementine);
+	border-radius: 999px;
+	padding: 0.4rem 0.9rem;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 </style>
