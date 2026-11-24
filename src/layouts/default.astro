@@ -119,6 +119,19 @@ const socialMediaImage = await getImage({
 	}
 }
 
+/* Move dropdown to the left side when Arabic (RTL) is active */
+:global(html[dir="rtl"]) .gt-floating-wrap,
+:global(html[lang="ar"]) .gt-floating-wrap,
+:global(html.translated-rtl) .gt-floating-wrap {
+	left: 1rem;
+	right: auto;
+
+	@include b-tablet {
+		left: 1.5rem;
+		right: auto;
+	}
+}
+
 :global(.gt_selector) {
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 700;
@@ -128,6 +141,7 @@ const socialMediaImage = await getImage({
 	border: 2px solid var(--color-clementine);
 	border-radius: 999px;
 	padding: 0.4rem 0.9rem;
+	width: auto;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
